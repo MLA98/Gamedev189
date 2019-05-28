@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    private static Object ExplosionPrefab;
     private Transform planet;
     private float moveSpeed = 2.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        ExplosionPrefab = Resources.Load("Prefabs/Explosion");
         planet = GameObject.FindGameObjectWithTag("Planet").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(planet);
-        if (Vector3.Distance(transform.position, planet.position) >= 0)
+        if (!GameManager.instance.gameOver)
         {
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            transform.LookAt(planet);
+            if (Vector3.Distance(transform.position, planet.position) >= 0)
+            {
+                transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            }
         }
     }
 
@@ -33,6 +38,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 Destroy(planet.gameObject);
                 Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
+                GameManager.instance.gameOver = true;
             }
         }
         if (collision.collider.tag == "Laser")
@@ -40,7 +46,13 @@ public class EnemyMovement : MonoBehaviour
             Destroy(this.gameObject);
             Destroy(collision.collider.gameObject);
             GameManager.instance.Score += 1;
+            // if aoe upgrade is activated
+            //var explosion = (GameObject)Instantiate(ExplosionPrefab, this.transform.localPosition, this.transform.localRotation);
         }
-    }
-    
+        if (collision.collider.tag == "AOE")
+        {
+            Destroy(this.gameObject);
+            GameManager.instance.Score += 1;
+        }
+    }    
 }

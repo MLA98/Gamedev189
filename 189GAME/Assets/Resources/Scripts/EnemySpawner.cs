@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= spawnRate)
+        if (timer >= spawnRate && !GameManager.instance.gameOver)
         {
             Vector3 offset;
             offset.x = Random.value > 0.5f ?
