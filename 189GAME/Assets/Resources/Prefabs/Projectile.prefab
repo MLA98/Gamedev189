@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7343786898938356209}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ee4667674d3e34d890963dd00a7b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyTimer: 0
