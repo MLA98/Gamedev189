@@ -8,6 +8,8 @@ public class Shooting : MonoBehaviour
     private static float SpeedFactor = 5.0f;
     private float FireRate = 0.33f;
     private float FireTimer;
+    [SerializeField]
+    private AudioSource ShootSound;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,6 +27,7 @@ public class Shooting : MonoBehaviour
             var projectile = (GameObject)Instantiate(ProjectilePrefab, this.transform.localPosition + (this.transform.up * 0.2f), this.transform.localRotation);
             FireTimer = 0;
             GameManager.instance.Ammo -= 1;
+            ShootSound.Play();
         }
         /*
         // if Spreadshot upgrade is activated

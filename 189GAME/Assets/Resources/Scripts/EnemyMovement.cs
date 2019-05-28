@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour
     private static Object ExplosionPrefab;
     private Transform planet;
     private float moveSpeed = 2.0f;
+    [SerializeField]
+    private AudioSource collapsedSound;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,11 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collision.collider.name == "Mars" || collision.collider.name == "Player")
         {
-            Destroy(this.gameObject);
+            collapsedSound.Play();
+            transform.position = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            transform.position.z * 99999f);
+            Destroy(this.gameObject, 2.355f);
             GameManager.instance.Health -= 1;
             if (GameManager.instance.Health == 0)
             {
@@ -43,7 +49,11 @@ public class EnemyMovement : MonoBehaviour
         }
         if (collision.collider.tag == "Laser")
         {
-            Destroy(this.gameObject);
+            collapsedSound.Play();
+            transform.position = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            transform.position.z * 99999f);
+            Destroy(this.gameObject, 2.355f);
             Destroy(collision.collider.gameObject);
             GameManager.instance.Score += 1;
             // if aoe upgrade is activated
@@ -51,7 +61,11 @@ public class EnemyMovement : MonoBehaviour
         }
         if (collision.collider.tag == "AOE")
         {
-            Destroy(this.gameObject);
+            collapsedSound.Play();
+            transform.position = new Vector3(transform.position.x, 
+                            transform.position.y,
+                            transform.position.z * 99999f);
+            Destroy(this.gameObject, 2.355f);
             GameManager.instance.Score += 1;
         }
     }    
