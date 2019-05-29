@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float Score;
     public float Health;
     public float Ammo;
-
+    public float PlayerFireRate;
     public Text scoreDisp;
     public Text gameOverScoreDisp;
     public Text ammoDisp;
@@ -20,13 +20,14 @@ public class GameManager : MonoBehaviour
     public bool gameOver;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         instance = this;
         Health = 3;
         Score = 0;
         Ammo = 10000;
         gameOver = false;
+        PlayerFireRate = 0.33f;
     }
 
     // Update is called once per frame
