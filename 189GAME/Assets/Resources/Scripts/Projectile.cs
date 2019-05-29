@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    private static Object ExplosionPrefab;
     public float DestroyTimer;
     // Start is called before the first frame update
     void Start()
     {
+        ExplosionPrefab = Resources.Load("Prefabs/Explosion");
         DestroyTimer = 0f;
     }
 
@@ -20,5 +22,13 @@ public class Projectile : MonoBehaviour
             Destroy(this.gameObject);
         }
         transform.position += transform.up * Time.deltaTime;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (GameManager.instance.AOE && collision.collider.tag == "Enemy")
+        {
+            var explosion = (GameObject)Instantiate(ExplosionPrefab, this.transform.localPosition, this.transform.localRotation);
+        }
     }
 }

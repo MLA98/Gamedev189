@@ -8,7 +8,8 @@ namespace Player
         private IPlayerCommand Clockwise;
         private IPlayerCommand CounterClockwise;
         private IPlayerCommand Shoot;
-
+        [SerializeField]
+        private AudioSource ShootSound;
 
         void Start()
         {
@@ -33,6 +34,7 @@ namespace Player
             if (Input.GetButton("Jump"))
             {
                 this.Shoot.Execute(this.gameObject);
+                ShootSound.Play();
             }
         }
     }

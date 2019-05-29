@@ -5,8 +5,12 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    private float spawnRate = 1f;
+    public GameObject bigEnemyPrefab;
+    public GameObject tinyEnemyPrefab;
+    private float spawnRate = 2f;
     private float timer;
+    private float enemyCounter;
+    private float waveLimit;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +20,9 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        waveLimit = GameManager.instance.Wave * 25;
         timer += Time.deltaTime;
-        if (timer >= spawnRate && !GameManager.instance.gameOver)
+        if (timer >= spawnRate && !GameManager.instance.gameOver && enemyCounter <= waveLimit && !GameManager.instance.nextWave)
         {
             Vector3 offset;
             offset.x = Random.value > 0.5f ?
@@ -27,8 +32,45 @@ public class EnemySpawner : MonoBehaviour
             offset.z = Random.value > 0.5f ?
                 Random.Range(-10f, -12f) :
                 Random.Range(10f, 12f);
-            var enemy = (GameObject)Instantiate(enemyPrefab, offset, Quaternion.identity);
+            if (GameManager.instance.Wave <= 2)
+            {
+                var enemy = (GameObject)Instantiate(enemyPrefab, offset, Quaternion.identity);
+            }
+            else if (GameManager.instance.Wave > 2 && GameManager.instance.Wave <= 4)
+            {
+                float rand = Random.Range(0, 10);
+                if (rand <= 7)
+                {
+                    var enemy = (GameObject)Instantiate(enemyPrefab, offset, Quaternion.identity);
+                }
+                else if (rand > 7)
+                {
+                    var enemy = (GameObject)Instantiate(bigEnemyPrefab, offset, Quaternion.identity);
+                }
+            }
+            else if (GameManager.instance.Wave > 4)
+            {
+                float rand = Random.Range(0, 10);
+                if (rand <= 4)
+                {
+                    var enemy = (GameObject)Instantiate(enemyPrefab, offset, Quaternion.identity);
+                }
+                else if (rand > 4 && rand <= 7.5)
+                {
+                    var enemy = (GameObject)Instantiate(bigEnemyPrefab, offset, Quaternion.identity);
+                }
+                else if (rand > 7.5)
+                {
+                    var enemy = (GameObject)Instantiate(tinyEnemyPrefab, offset, Quaternion.identity);
+                }
+            }
             timer = 0f;
+            enemyCounter += 1;
+        }
+        if (enemyCounter > waveLimit && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            GameManager.instance.nextWave = true;
+            enemyCounter = 0;
         }
     }
 }
