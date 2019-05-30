@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        transform.position += transform.up * Time.deltaTime;
+        transform.position += transform.up * GameManager.instance.SpeedFactor * Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
     public float Wave;
     public float Ammo;
     public float PlayerFireRate;
-    
+    public float SpeedFactor;
+    private float bootUpTimer;
+
     public Text scoreDisp;
     public Text gameOverScoreDisp;
     public Text upgradeScoreDisp;
@@ -27,25 +29,27 @@ public class GameManager : MonoBehaviour
     public Button spreadUp;
     public Button AOEUp;
 
-    public bool gameOver;
-    public bool nextWave;
+    public enum gameState { bootUp, gameOver, waveCompleted, playing}
+    public gameState currState;
 
     public bool spread;
     public bool AOE;
+    public bool hit;
 
     // Start is called before the first frame update
     void Awake()
     {
+        currState = gameState.bootUp;
         instance = this;
         Health = 10;
         Score = 0;
         Wave = 1;
         Ammo = 50;
-        gameOver = false;
         PlayerFireRate = 0.33f;
-        nextWave = false;
+        SpeedFactor = 1f;
         spread = false;
         AOE = false;
+        hit = false;
     }
 
     // Update is called once per frame
@@ -61,14 +65,22 @@ public class GameManager : MonoBehaviour
         upgradeWaveDisp.text = "Wave " + Wave + " Completed";
         upgradeHealthBar.value = Health;
 
-        if (gameOver)
+        if (currState == gameState.bootUp)
+        {
+            bootUpTimer += Time.deltaTime;
+            if (bootUpTimer >= 3.8f)
+            {
+                currState = gameState.playing;
+            }
+        }
+        if (currState == gameState.gameOver)
         {
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
             gameOverDisp.gameObject.SetActive(true);
         }
-        if (nextWave)
+        if (currState == gameState.waveCompleted)
         {
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
@@ -84,7 +96,7 @@ public class GameManager : MonoBehaviour
         healthBar.gameObject.SetActive(true);
         upgradeScreen.gameObject.SetActive(false);
         Wave += 1;
-        nextWave = false;
+        currState = gameState.playing;
     }
 
     public void RefillAmmo()
@@ -111,6 +123,15 @@ public class GameManager : MonoBehaviour
         {
             Score -= 250;
             PlayerFireRate /= 1.1f;
+        }
+    }
+
+    public void upgradeLaserSpeed()
+    {
+        if (Score >= 250)
+        {
+            Score -= 250;
+            SpeedFactor *= 1.1f;
         }
     }
 

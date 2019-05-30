@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 398136516784506010}
   - component: {fileID: 8195305174803766283}
   - component: {fileID: 8976065871674201798}
-  - component: {fileID: 5487203843749941849}
   - component: {fileID: 4295180792193580671}
-  - component: {fileID: 839928836963762341}
+  - component: {fileID: 3713026694622346074}
   m_Layer: 0
   m_Name: BigEnemy
   m_TagString: Enemy
@@ -95,19 +94,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5487203843749941849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2272020307783627389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba4850ba0c796804f9199915b0160b74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collapsedSound: {fileID: 6339231366563451799}
 --- !u!54 &4295180792193580671
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -124,7 +110,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &839928836963762341
+--- !u!114 &3713026694622346074
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,9 +119,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2272020307783627389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba4850ba0c796804f9199915b0160b74, type: 3}
+  m_Script: {fileID: 11500000, guid: bdf968eddb3cd7246a9d72a7b6b5e701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.3
+  enemyHealth: 3
+  damage: 2
+  scoreAdded: 10
+  zigZag: 0
   collapsedSound: {fileID: 6339231366563451799}
 --- !u!1 &6685594879817660543
 GameObject:

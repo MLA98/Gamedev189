@@ -24,7 +24,6 @@ public class Explosion : MonoBehaviour
     {
         currentLerpTime = Time.time - startLerpTime;
         float perc = currentLerpTime / LerpDuration;
-        Debug.Log(perc);
         transform.localScale = Vector3.Lerp(startScale, endScale, perc);
         if (perc >= 1f)
         {

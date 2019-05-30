@@ -8,7 +8,6 @@ namespace Player.Command
   {
 
     private static Object ProjectilePrefab;
-    private static float SpeedFactor = 5.0f;
     private float FireRate;
     private float LastFireTime;
     void OnEnable()

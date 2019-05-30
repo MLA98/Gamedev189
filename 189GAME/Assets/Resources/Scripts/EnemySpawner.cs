@@ -7,22 +7,23 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public GameObject bigEnemyPrefab;
     public GameObject tinyEnemyPrefab;
-    private float spawnRate = 2f;
+    private float spawnRate;
     private float timer;
     private float enemyCounter;
     private float waveLimit;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         waveLimit = GameManager.instance.Wave * 25;
+        spawnRate = 3 - 0.1f * (GameManager.instance.Wave - 1);
         timer += Time.deltaTime;
-        if (timer >= spawnRate && !GameManager.instance.gameOver && enemyCounter <= waveLimit && !GameManager.instance.nextWave)
+        if (timer >= spawnRate && GameManager.instance.currState == GameManager.gameState.playing && enemyCounter <= waveLimit)
         {
             Vector3 offset;
             offset.x = Random.value > 0.5f ?
@@ -69,7 +70,7 @@ public class EnemySpawner : MonoBehaviour
         }
         if (enemyCounter > waveLimit && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            GameManager.instance.nextWave = true;
+            GameManager.instance.currState = GameManager.gameState.waveCompleted;
             enemyCounter = 0;
         }
     }

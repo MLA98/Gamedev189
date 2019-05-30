@@ -20,21 +20,24 @@ namespace Player
 
         void FixedUpdate()
         {
-            // Movement
-            if (Input.GetAxisRaw("Horizontal") > 0)
+            if (GameManager.instance.currState == GameManager.gameState.playing)
             {
-                this.Clockwise.Execute(this.gameObject);
-            }
-            else if (Input.GetAxisRaw("Horizontal") < 0)
-            {
-                this.CounterClockwise.Execute(this.gameObject);
-            }
+                // Movement
+                if (Input.GetAxisRaw("Horizontal") > 0)
+                {
+                    this.Clockwise.Execute(this.gameObject);
+                }
+                else if (Input.GetAxisRaw("Horizontal") < 0)
+                {
+                    this.CounterClockwise.Execute(this.gameObject);
+                }
 
-            // Battle
-            if (Input.GetButton("Jump"))
-            {
-                this.Shoot.Execute(this.gameObject);
-                ShootSound.Play();
+                // Battle
+                if (Input.GetButton("Jump"))
+                {
+                    this.Shoot.Execute(this.gameObject);
+                    ShootSound.Play();
+                }
             }
         }
     }

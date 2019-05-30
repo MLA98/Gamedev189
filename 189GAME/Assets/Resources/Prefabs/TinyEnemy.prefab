@@ -139,8 +139,8 @@ GameObject:
   - component: {fileID: 7478232082479005487}
   - component: {fileID: 7478232082479005486}
   - component: {fileID: 7478232082479005481}
-  - component: {fileID: 7478232082479005485}
-  - component: {fileID: 6575443490624373424}
+  - component: {fileID: 4363985813607862026}
+  - component: {fileID: 8623345001013131087}
   m_Layer: 0
   m_Name: TinyEnemy
   m_TagString: Enemy
@@ -221,7 +221,25 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7478232082479005485
+--- !u!114 &4363985813607862026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7478232082479005483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdf968eddb3cd7246a9d72a7b6b5e701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2.25
+  enemyHealth: 1
+  damage: 1
+  scoreAdded: 15
+  zigZag: 1
+  collapsedSound: {fileID: 6682492514085301185}
+--- !u!54 &8623345001013131087
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,16 +255,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6575443490624373424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7478232082479005483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9edce3dc670813b4bbba32e87bfb4ca7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collapsedSound: {fileID: 6682492514085301185}
