@@ -16,12 +16,18 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DestroyTimer += Time.deltaTime;
+        if (GameManager.instance.currState == GameManager.gameState.playing)
+        {
+            DestroyTimer += Time.deltaTime;
+        }
         if (DestroyTimer >= 4f)
         {
             Destroy(this.gameObject);
         }
-        transform.position += transform.up * GameManager.instance.SpeedFactor * Time.deltaTime;
+        if (GameManager.instance.currState == GameManager.gameState.playing)
+        {
+            transform.position += transform.up * GameManager.instance.SpeedFactor * Time.deltaTime;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

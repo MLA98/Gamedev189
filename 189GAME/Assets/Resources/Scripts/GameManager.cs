@@ -28,8 +28,9 @@ public class GameManager : MonoBehaviour
 
     public Button spreadUp;
     public Button AOEUp;
+    public Button PauseButton;
 
-    public enum gameState { bootUp, gameOver, waveCompleted, playing}
+    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause}
     public gameState currState;
 
     public bool spread;
@@ -87,6 +88,18 @@ public class GameManager : MonoBehaviour
             healthBar.gameObject.SetActive(false);
             upgradeScreen.gameObject.SetActive(true);
         }
+
+        if (currState == gameState.pause){
+            scoreDisp.gameObject.SetActive(true);
+            ammoDisp.gameObject.SetActive(true);
+            healthBar.gameObject.SetActive(true);
+            upgradeScreen.gameObject.SetActive(false);
+        }
+
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            PauseContinue();
+        }
     }
 
     public void startNextWave()
@@ -105,6 +118,18 @@ public class GameManager : MonoBehaviour
         {
             Score -= 10;
             Ammo += 100;
+        }
+    }
+
+    public void PauseContinue()
+    {
+        if (GameManager.instance.currState == GameManager.gameState.pause)
+        {
+            GameManager.instance.currState = GameManager.gameState.playing;
+        }
+        else if (GameManager.instance.currState == GameManager.gameState.playing)
+        {
+            GameManager.instance.currState = GameManager.gameState.pause;
         }
     }
 
