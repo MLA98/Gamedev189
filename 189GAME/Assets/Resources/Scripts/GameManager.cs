@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
             gameOverDisp.gameObject.SetActive(true);
+            PauseButton.gameObject.SetActive(false);
         }
         if (currState == gameState.waveCompleted)
         {
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
             upgradeScreen.gameObject.SetActive(true);
+            PauseButton.gameObject.SetActive(false);
         }
 
         if (currState == gameState.pause){
