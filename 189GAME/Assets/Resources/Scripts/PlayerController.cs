@@ -8,6 +8,7 @@ namespace Player
         private IPlayerCommand Clockwise;
         private IPlayerCommand CounterClockwise;
         private IPlayerCommand Shoot;
+        private IPlayerCommand Jump;
         [SerializeField]
         private AudioSource ShootSound;
 
@@ -16,6 +17,7 @@ namespace Player
             this.Clockwise = ScriptableObject.CreateInstance<MovePlayerClockwise>();
             this.CounterClockwise = ScriptableObject.CreateInstance<MovePlayerCounterClockwise>();
             this.Shoot = ScriptableObject.CreateInstance<PlayerShoot>();
+            this.Jump = ScriptableObject.CreateInstance<PlayerJump>();
         }
 
         void FixedUpdate()
@@ -38,6 +40,14 @@ namespace Player
                     this.Shoot.Execute(this.gameObject);
                     ShootSound.Play();
                 }
+            }
+        }
+        private void OnCollisionStay(Collision other)
+        {
+            if (other.gameObject.tag == "Planet" && Input.GetButton("Fire1"))
+            {
+                Debug.Log("Called");
+                this.Jump.Execute(this.gameObject);
             }
         }
     }
