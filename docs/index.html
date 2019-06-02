@@ -46,9 +46,14 @@
       font-family: 'Varela Round', sans-serif;
       background-color: #E3E2DF ;
     }
+    #logo {
+      width: 13rem;
+    }
 
     @media (max-width: 740px) {
-
+      #logo {
+      width: 10rem;
+    }
       html,
       body,
       header,
@@ -84,7 +89,7 @@
       <!-- Brand -->
       <a class="navbar-brand" href="/pagetest"
          target="_blank" >
-        <img src="img/logo.png" alt="">
+        <img id="logo" src="img/logo.png" alt="">
       </a>
 
       <!-- Collapse -->
@@ -406,8 +411,7 @@
           <!--Grid column-->
           <div class="col-lg-6 col-md-12">
 
-            <p class="h5 text-center mb-4">Watch our Official Reveal Trailer
-              tutorial</p>
+            <p class="h5 text-center mb-4">Watch our Official Reveal Trailer</p>
             <div class="embed-responsive embed-responsive-16by9">
               <iframe class="embed-responsive-item"
                       src="https://www.youtube.com/embed/UZlEXl9xgR8"
