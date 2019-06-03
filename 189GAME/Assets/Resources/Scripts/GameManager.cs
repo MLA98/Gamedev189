@@ -129,9 +129,6 @@ public class GameManager : MonoBehaviour
     // Button functions
     public void startNextWave()
     {
-        scoreDisp.gameObject.SetActive(true);
-        ammoDisp.gameObject.SetActive(true);
-        healthBar.gameObject.SetActive(true);
         upgradeScreen.gameObject.SetActive(false);
         Wave += 1;
         currState = gameState.playing;
