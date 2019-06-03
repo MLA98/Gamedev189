@@ -11,9 +11,13 @@ public class HealthBuff : MonoBehaviour
     private float Speed;
     [SerializeField]
     private AudioSource PickUpSound;
+
+    private GameManager instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = GameManager.Instance;
         Mars = GameObject.FindGameObjectWithTag("Planet");
         this.transform.LookAt(Mars.transform);
     }
@@ -21,7 +25,7 @@ public class HealthBuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.currState == GameManager.gameState.playing)
+        if (instance.currState == GameManager.gameState.playing)
         {
             if (Vector3.Distance(transform.position, Mars.transform.position) >= 0)
             {
@@ -38,7 +42,7 @@ public class HealthBuff : MonoBehaviour
                             transform.position.y,
                             transform.position.z * 99999f);
             Destroy(this.gameObject, 2.355f);
-            GameManager.instance.Health += HealthAdded;
+            instance.Health += HealthAdded;
         }
     }
 }

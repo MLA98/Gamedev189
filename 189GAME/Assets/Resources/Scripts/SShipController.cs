@@ -22,9 +22,13 @@ public class SShipController : MonoBehaviour
     private float Damage;
     [SerializeField]
     private AudioSource CollapsedSound;
+
+    private GameManager instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = GameManager.Instance;
         Target = new Vector3(Random.Range(-3, 2), 0, Random.Range(-5, 4));
         Debug.Log(Target);
         this.transform.LookAt(Target);
@@ -33,7 +37,7 @@ public class SShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.currState == GameManager.gameState.playing)
+        if(instance.currState == GameManager.gameState.playing)
         {
             Timer += Time.deltaTime;
             if(Timer >= LifeSpan)
@@ -55,14 +59,14 @@ public class SShipController : MonoBehaviour
                             transform.position.y,
                             transform.position.z * 99999f);
             Destroy(this.gameObject, 2.355f);
-            GameManager.instance.Health -= Damage;
-            GameManager.instance.hit = true;
-            if (GameManager.instance.Health == 0)
+            instance.Health -= Damage;
+            instance.hit = true;
+            if (instance.Health == 0)
             {
                 var planet = GameObject.FindGameObjectWithTag("Planet");
                 Destroy(planet.gameObject);
                 Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
-                GameManager.instance.currState = GameManager.gameState.gameOver;
+                instance.currState = GameManager.gameState.gameOver;
             }
         }
         if (collision.collider.tag == "Laser")
@@ -90,7 +94,7 @@ public class SShipController : MonoBehaviour
                 transform.position.y,
                 transform.position.z * 99999f);
                 Destroy(this.gameObject, 2.355f);
-                GameManager.instance.Score += ScoreAdded;
+                instance.Score += ScoreAdded;
             }
         }
     }

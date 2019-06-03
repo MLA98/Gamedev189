@@ -10,19 +10,22 @@ public class SShipSpawner : MonoBehaviour
     private float timer;
     private float SShipCounter;
     private float waveLimit;
+    
+    private GameManager instance;
+   
     // Start is called before the first frame update
     void Start()
     {
-
+        instance = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        waveLimit = GameManager.instance.Wave * 2;
-        spawnRate = 10 + 0.1f * (GameManager.instance.Wave - 1);
+        waveLimit = instance.Wave * 2;
+        spawnRate = 10 + 0.1f * (instance.Wave - 1);
         timer += Time.deltaTime;
-        if (timer >= spawnRate && GameManager.instance.currState == GameManager.gameState.playing && SShipCounter <= waveLimit)
+        if (timer >= spawnRate && instance.currState == GameManager.gameState.playing && SShipCounter <= waveLimit)
         {
             Vector3 offset;
             offset.x = Random.value > 0.5f ?
