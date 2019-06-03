@@ -85,6 +85,9 @@ public class GameManager : MonoBehaviour
         upgradeWaveDisp.text = "Wave " + Wave + " Completed";
         upgradeHealthBar.value = Health;
 
+        Physics.IgnoreLayerCollision(9, 9);
+        Physics.IgnoreLayerCollision(0, 10);
+
         // Boot up game state
         if (currState == gameState.bootUp)
         {

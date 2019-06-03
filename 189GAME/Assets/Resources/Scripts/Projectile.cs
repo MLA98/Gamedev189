@@ -9,10 +9,13 @@ public class Projectile : MonoBehaviour
 
     private GameManager instance;
 
+    private void Awake()
+    {
+        instance = GameManager.Instance;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        instance = GameManager.Instance;
         ExplosionPrefab = Resources.Load("Prefabs/Explosion");
         DestroyTimer = 0f;
     }
