@@ -20,6 +20,8 @@ public class SShipController : MonoBehaviour
     private GameObject HealthBuff;
     [SerializeField]
     private float Damage;
+    [SerializeField]
+    private AudioSource CollapsedSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,7 @@ public class SShipController : MonoBehaviour
     {
         if (collision.collider.name == "Mars" || collision.collider.name == "Player")
         {
+            CollapsedSound.Play();
             transform.position = new Vector3(transform.position.x,
                             transform.position.y,
                             transform.position.z * 99999f);
@@ -64,25 +67,28 @@ public class SShipController : MonoBehaviour
         }
         if (collision.collider.tag == "Laser")
         {
+            CollapsedSound.Play();
             Health--;
             Debug.Log("Health is" + Health);
             Destroy(collision.collider.gameObject);
             this.GetComponent<Rigidbody>().AddForce(-transform.forward * 5);
             if (Health <= 0)
             {
-                transform.position = new Vector3(transform.position.x,
-                                transform.position.y,
-                                transform.position.z * 99999f);
                 int dice = Random.Range((int)0, (int)2);
                 switch (dice)
                 {
                     case 0:
-                        Instantiate(AmmoBuff, this.transform);
+                        Instantiate(AmmoBuff, this.transform.position, Quaternion.identity);
+                        Debug.Log("Instantiated");
                         break;
                     case 1:
-                        Instantiate(HealthBuff, this.transform);
+                        Instantiate(HealthBuff, this.transform.position, Quaternion.identity);
+                        Debug.Log("Instantiated");
                         break;
                 }
+                transform.position = new Vector3(transform.position.x,
+                transform.position.y,
+                transform.position.z * 99999f);
                 Destroy(this.gameObject, 2.355f);
                 GameManager.instance.Score += ScoreAdded;
             }
