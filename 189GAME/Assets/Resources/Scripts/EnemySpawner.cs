@@ -11,33 +11,47 @@ public class EnemySpawner : MonoBehaviour
     private float timer;
     private float enemyCounter;
     private float waveLimit;
+    private GameManager instance;
     // Start is called before the first frame update
     void Start()
     {
-
+        instance = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        waveLimit = GameManager.instance.Wave * 25;
-        spawnRate = 3 - 0.1f * (GameManager.instance.Wave - 1);
+        // Increasing difficulty per wave
+        waveLimit = instance.Wave * 25;
+        spawnRate = 3 - 0.1f * (instance.Wave - 1);
         timer += Time.deltaTime;
-        if (timer >= spawnRate && GameManager.instance.currState == GameManager.gameState.playing && enemyCounter <= waveLimit)
+        if (timer >= spawnRate && instance.currState == GameManager.gameState.playing && enemyCounter <= waveLimit)
         {
+            // Spawn out of camera range
             Vector3 offset;
-            offset.x = Random.value > 0.5f ?
-                Random.Range(-8f, -10f) :
-                Random.Range(8f, 10f);
-            offset.y = 0f;
-            offset.z = Random.value > 0.5f ?
-                Random.Range(-10f, -12f) :
-                Random.Range(10f, 12f);
-            if (GameManager.instance.Wave <= 2)
+
+            if (Random.value > 0.5f)
+            {
+                offset.x = Random.value > 0.5f ?
+                    Random.Range(-8f, -10f) :
+                    Random.Range(8f, 10f);
+                offset.y = 0f;
+                offset.z = Random.Range(-12f, 12f);
+            }
+            else
+            {
+                offset.x = Random.Range(-10f, 10f);
+                offset.y = 0f;
+                offset.z = Random.value > 0.5f ?
+                    Random.Range(-10f, -12f) :
+                    Random.Range(10f, 12f);
+            }
+            // Spawn RNG for different waves
+            if (instance.Wave <= 2)
             {
                 var enemy = (GameObject)Instantiate(enemyPrefab, offset, Quaternion.identity);
             }
-            else if (GameManager.instance.Wave > 2 && GameManager.instance.Wave <= 4)
+            else if (instance.Wave > 2 && instance.Wave <= 4)
             {
                 float rand = Random.Range(0, 10);
                 if (rand <= 7)
@@ -49,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
                     var enemy = (GameObject)Instantiate(bigEnemyPrefab, offset, Quaternion.identity);
                 }
             }
-            else if (GameManager.instance.Wave > 4)
+            else if (instance.Wave > 4)
             {
                 float rand = Random.Range(0, 10);
                 if (rand <= 4)
@@ -68,9 +82,10 @@ public class EnemySpawner : MonoBehaviour
             timer = 0f;
             enemyCounter += 1;
         }
+        // Wave is completed if all enemies spawned and destroyed
         if (enemyCounter > waveLimit && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            GameManager.instance.currState = GameManager.gameState.waveCompleted;
+            instance.currState = GameManager.gameState.waveCompleted;
             enemyCounter = 0;
         }
     }

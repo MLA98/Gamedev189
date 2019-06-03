@@ -6,15 +6,18 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    // Universal values
     public float Score;
     public float Health;
     public float Wave;
     public float Ammo;
     public float PlayerFireRate;
     public float SpeedFactor;
+
+    // Used for initial game state
     private float bootUpTimer;
 
+    // UI
     public Text scoreDisp;
     public Text gameOverScoreDisp;
     public Text upgradeScoreDisp;
@@ -25,23 +28,39 @@ public class GameManager : MonoBehaviour
     public Image upgradeScreen;
     public Slider healthBar;
     public Slider upgradeHealthBar;
-
     public Button spreadUp;
     public Button AOEUp;
-    public Button PauseButton;
+    public Button pauseButton;
 
-    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause}
-    public gameState currState;
-
+    // Upgrade bools
     public bool spread;
     public bool AOE;
     public bool hit;
 
+    // Game states
+    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause}
+    public gameState currState;
+
+    // Singleton
+    private static GameManager instance;
+    public static GameManager Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         currState = gameState.bootUp;
-        instance = this;
         Health = 10;
         Score = 0;
         Wave = 1;
@@ -66,21 +85,24 @@ public class GameManager : MonoBehaviour
         upgradeWaveDisp.text = "Wave " + Wave + " Completed";
         upgradeHealthBar.value = Health;
 
+        // Boot up game state
         if (currState == gameState.bootUp)
         {
             bootUpTimer += Time.deltaTime;
-            if (bootUpTimer >= 3.8f)
+            if (bootUpTimer >= 3.2f)
             {
                 currState = gameState.playing;
             }
         }
+
+        // UI in different game states
         if (currState == gameState.gameOver)
         {
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
             gameOverDisp.gameObject.SetActive(true);
-            PauseButton.gameObject.SetActive(false);
+            pauseButton.gameObject.SetActive(false);
         }
         if (currState == gameState.waveCompleted)
         {
@@ -88,22 +110,23 @@ public class GameManager : MonoBehaviour
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
             upgradeScreen.gameObject.SetActive(true);
-            PauseButton.gameObject.SetActive(false);
+            pauseButton.gameObject.SetActive(false);
         }
-
-        if (currState == gameState.pause){
+        if (currState == gameState.playing)
+        {
             scoreDisp.gameObject.SetActive(true);
             ammoDisp.gameObject.SetActive(true);
             healthBar.gameObject.SetActive(true);
-            upgradeScreen.gameObject.SetActive(false);
+            pauseButton.gameObject.SetActive(true);
         }
 
-        if(Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape))
         {
             PauseContinue();
         }
     }
 
+    // Button functions
     public void startNextWave()
     {
         scoreDisp.gameObject.SetActive(true);
@@ -120,18 +143,6 @@ public class GameManager : MonoBehaviour
         {
             Score -= 10;
             Ammo += 100;
-        }
-    }
-
-    public void PauseContinue()
-    {
-        if (GameManager.instance.currState == GameManager.gameState.pause)
-        {
-            GameManager.instance.currState = GameManager.gameState.playing;
-        }
-        else if (GameManager.instance.currState == GameManager.gameState.playing)
-        {
-            GameManager.instance.currState = GameManager.gameState.pause;
         }
     }
 
@@ -185,5 +196,22 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("welcome");
+    }
+
+    public void PauseContinue()
+    {
+        if (currState == gameState.pause)
+        {
+            currState = gameState.playing;
+        }
+        else if (currState == gameState.playing)
+        {
+            currState = gameState.pause;
+        }
     }
 }

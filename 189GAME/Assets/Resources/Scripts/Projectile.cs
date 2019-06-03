@@ -6,9 +6,13 @@ public class Projectile : MonoBehaviour
 {
     private static Object ExplosionPrefab;
     public float DestroyTimer;
+
+    private GameManager instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = GameManager.Instance;
         ExplosionPrefab = Resources.Load("Prefabs/Explosion");
         DestroyTimer = 0f;
     }
@@ -16,23 +20,20 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.currState == GameManager.gameState.playing)
-        {
-            DestroyTimer += Time.deltaTime;
-        }
         if (DestroyTimer >= 4f)
         {
             Destroy(this.gameObject);
         }
-        if (GameManager.instance.currState == GameManager.gameState.playing)
+        if (instance.currState != GameManager.gameState.pause)
         {
-            transform.position += transform.up * GameManager.instance.SpeedFactor * Time.deltaTime;
+            DestroyTimer += Time.deltaTime;
+            transform.position += transform.up * instance.SpeedFactor * Time.deltaTime;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (GameManager.instance.AOE && collision.collider.tag == "Enemy")
+        if (instance.AOE && collision.collider.tag == "Enemy")
         {
             var explosion = (GameObject)Instantiate(ExplosionPrefab, this.transform.localPosition, this.transform.localRotation);
         }

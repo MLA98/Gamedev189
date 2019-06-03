@@ -18,16 +18,19 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private AudioSource collapsedSound;
 
+    private GameManager instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = GameManager.Instance;
         planet = GameObject.FindGameObjectWithTag("Planet").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.currState == GameManager.gameState.playing)
+        if (instance.currState == GameManager.gameState.playing)
         {
             transform.LookAt(planet);
             if (Vector3.Distance(transform.position, planet.position) >= 0)
@@ -57,13 +60,17 @@ public class EnemyController : MonoBehaviour
                             transform.position.y,
                             transform.position.z * 99999f);
             Destroy(this.gameObject, 2.355f);
-            GameManager.instance.Health -= damage;
-            GameManager.instance.hit = true;
-            if (GameManager.instance.Health == 0)
+            instance.Health -= damage;
+            instance.hit = true;
+            if (instance.Health == 0)
             {
-                Destroy(planet.gameObject);
-                Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
-                GameManager.instance.currState = GameManager.gameState.gameOver;
+                planet.GetComponent<AudioSource>().Play();
+                var em = planet.GetComponent<ParticleSystem>().emission;
+                em.enabled = true;
+                planet.GetComponent<ParticleSystem>().Play();
+                Destroy(planet.gameObject, 1.0f);
+                Destroy(GameObject.FindGameObjectWithTag("Player").gameObject, 1.0f);
+                instance.currState = GameManager.gameState.gameOver;
             }
         }
         if (collision.collider.tag == "Laser")
@@ -78,7 +85,7 @@ public class EnemyController : MonoBehaviour
                                 transform.position.y,
                                 transform.position.z * 99999f);
                 Destroy(this.gameObject, 2.355f);
-                GameManager.instance.Score += scoreAdded;
+                instance.Score += scoreAdded;
             }
         }
     }    

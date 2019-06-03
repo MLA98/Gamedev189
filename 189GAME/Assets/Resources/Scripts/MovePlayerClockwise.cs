@@ -8,7 +8,7 @@ namespace Player.Command
     {
         [SerializeField]
         private float moveSpeed = 3;
-        private Vector3 moveDir = new Vector3(0, 0, -1);
+        private Vector3 moveDir = new Vector3(0, 0, 1);
 
         public void Execute(GameObject gameObject)
         {

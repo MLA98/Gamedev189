@@ -13,17 +13,19 @@ public class CameraController : MonoBehaviour
     private Vector3 endPos;
     private float startRot;
     private float endRot;
-    
     private float shakeDuration;
     private float shakeAmount;
+
+    private GameManager instance;
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = GameManager.Instance;
         LerpDuration = 2f;
         startLerpTime = Time.time;
         startPos = transform.localPosition;
-        endPos = startPos + new Vector3(0,4.5f,0);
+        endPos = startPos + new Vector3(0, 4.5f, 0);
         startRot = 90;
         endRot = 360;
         shakeDuration = 0.4f;
@@ -33,20 +35,33 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentLerpTime = Time.time - startLerpTime;
-        float perc = currentLerpTime / LerpDuration;
-        if (perc <= 1f)
+        // Lerping camera position and rotation for boot up
+        if (instance.currState == GameManager.gameState.bootUp)
         {
-            transform.localPosition = Vector3.Lerp(startPos, endPos, perc);
-            float rot = Mathf.Lerp(startRot, endRot, perc);
-            transform.parent.localRotation = Quaternion.Euler(rot, 0, 0);
+            currentLerpTime = Time.time - startLerpTime;
+            float perc = currentLerpTime / LerpDuration;
+            if (perc <= 1f)
+            {
+                transform.localPosition = Vector3.Lerp(startPos, endPos, perc);
+                float rot = Mathf.Lerp(startRot, endRot, perc);
+                transform.parent.localRotation = Quaternion.Euler(rot, 0, 0);
+            }
+            else
+            {
+                player.SetActive(true);
+            }
         }
-        else
+
+
+        if (instance.Health == 0)
         {
-            player.SetActive(true);
+            shakeAmount = 1.0f;
+            shakeDuration = 1.0f;
+            instance.Health--;
         }
-        
-        if (GameManager.instance.hit)
+
+        // Shake camera when player is hit
+        if (instance.hit)
         {
             if (shakeDuration > 0)
             {
@@ -56,10 +71,10 @@ public class CameraController : MonoBehaviour
             else
             {
                 shakeDuration = 0.5f;
-                GameManager.instance.hit = false;
+                instance.hit = false;
                 transform.localPosition = endPos;
             }
-            
+
         }
 
     }

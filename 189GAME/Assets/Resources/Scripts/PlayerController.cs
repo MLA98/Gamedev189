@@ -9,11 +9,12 @@ namespace Player
         private IPlayerCommand CounterClockwise;
         private IPlayerCommand Shoot;
         private IPlayerCommand Jump;
-        [SerializeField]
-        private AudioSource ShootSound;
+
+        private GameManager instance;
 
         void Start()
         {
+            instance = GameManager.Instance;
             this.Clockwise = ScriptableObject.CreateInstance<MovePlayerClockwise>();
             this.CounterClockwise = ScriptableObject.CreateInstance<MovePlayerCounterClockwise>();
             this.Shoot = ScriptableObject.CreateInstance<PlayerShoot>();
@@ -22,7 +23,7 @@ namespace Player
 
         void FixedUpdate()
         {
-            if (GameManager.instance.currState == GameManager.gameState.playing)
+            if (instance.currState == GameManager.gameState.playing)
             {
                 // Movement
                 if (Input.GetAxisRaw("Horizontal") > 0)
@@ -38,15 +39,14 @@ namespace Player
                 if (Input.GetButton("Jump"))
                 {
                     this.Shoot.Execute(this.gameObject);
-                    ShootSound.Play();
+                    this.GetComponent<AudioSource>().Play();
                 }
             }
         }
         private void OnCollisionStay(Collision other)
         {
-            if (other.gameObject.tag == "Planet" && Input.GetButton("Fire1"))
+            if (other.gameObject.tag == "Planet" && Input.GetAxisRaw("Vertical") > 0)
             {
-                Debug.Log("Called");
                 this.Jump.Execute(this.gameObject);
             }
         }
