@@ -11,7 +11,8 @@ namespace Player
         private IPlayerCommand Jump;
         private Animator Animation;
         private GameManager instance;
-
+        [SerializeField] private float RunningSpeed;
+        
         void Start()
         {
             instance = GameManager.Instance;
@@ -21,6 +22,11 @@ namespace Player
             this.Jump = ScriptableObject.CreateInstance<PlayerJump>();
             Animation = gameObject.GetComponentInChildren<Animator>();
 
+        }
+
+        public float GetRunningSpeed()
+        {
+            return RunningSpeed;
         }
 
         void FixedUpdate()

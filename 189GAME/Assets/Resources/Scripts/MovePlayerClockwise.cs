@@ -6,12 +6,12 @@ namespace Player.Command
 {
     public class MovePlayerClockwise : ScriptableObject, IPlayerCommand
     {
-        [SerializeField]
-        private float moveSpeed = 3;
-        private Vector3 moveDir = new Vector3(0, 0, 1);
+        private Vector3 moveDir = new Vector3(0, 0, 1f);
 
         public void Execute(GameObject gameObject)
         {
+            var player = gameObject.GetComponent<PlayerController>();
+            float moveSpeed = player.GetRunningSpeed();
             var rigidBody = gameObject.GetComponent<Rigidbody>();
             var transform = gameObject.GetComponent<Transform>();
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, Mathf.Abs(transform.localScale.z));
