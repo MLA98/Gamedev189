@@ -9,7 +9,7 @@ namespace Player
         private IPlayerCommand CounterClockwise;
         private IPlayerCommand Shoot;
         private IPlayerCommand Jump;
-
+        private Animator Animation;
         private GameManager instance;
 
         void Start()
@@ -19,6 +19,8 @@ namespace Player
             this.CounterClockwise = ScriptableObject.CreateInstance<MovePlayerCounterClockwise>();
             this.Shoot = ScriptableObject.CreateInstance<PlayerShoot>();
             this.Jump = ScriptableObject.CreateInstance<PlayerJump>();
+            Animation = gameObject.GetComponentInChildren<Animator>();
+
         }
 
         void FixedUpdate()
@@ -29,10 +31,12 @@ namespace Player
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     this.Clockwise.Execute(this.gameObject);
+                    Animation.SetBool("Running", true);
                 }
                 else if (Input.GetAxisRaw("Horizontal") < 0)
                 {
                     this.CounterClockwise.Execute(this.gameObject);
+                    Animation.SetBool("Running", true);
                 }
 
                 // Battle
@@ -41,6 +45,11 @@ namespace Player
                     this.Shoot.Execute(this.gameObject);
                     this.GetComponent<AudioSource>().Play();
                 }
+                if (Input.GetAxisRaw("Horizontal") == 0)
+                {
+                    Animation.SetBool("Running", false);
+                }
+            
             }
         }
         private void OnCollisionStay(Collision other)
@@ -48,6 +57,8 @@ namespace Player
             if (other.gameObject.tag == "Planet" && Input.GetAxisRaw("Vertical") > 0)
             {
                 this.Jump.Execute(this.gameObject);
+
+                Animation.Play("StartJump");
             }
         }
     }

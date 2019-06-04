@@ -12,6 +12,8 @@ namespace Player.Command
         public void Execute(GameObject gameObject)
         {
             var rigidBody = gameObject.GetComponent<Rigidbody>();
+            var transform = gameObject.GetComponent<Transform>();
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -Mathf.Abs(transform.localScale.z));
             rigidBody.MovePosition(rigidBody.position + rigidBody.transform.TransformDirection(moveDir) * moveSpeed * Time.fixedDeltaTime);
         }
     }

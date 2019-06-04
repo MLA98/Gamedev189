@@ -10,6 +10,9 @@ namespace Player.Command
         private static Object ProjectilePrefab;
         private float FireRate;
         private float LastFireTime;
+        private Animator Animation;
+
+        
         void OnEnable()
         {
             instance = GameManager.Instance;
@@ -25,8 +28,13 @@ namespace Player.Command
             {
                 var projectile = (GameObject)Instantiate(ProjectilePrefab,
                     rigidBody.transform.localPosition + (rigidBody.transform.up * 0.2f),
-                    rigidBody.transform.localRotation);
+                    rigidBody.transform.localRotation);      
                 instance.Ammo -= 1;
+
+                //Handle shooting animation
+                Animation = gameObject.GetComponentInChildren<Animator>();
+                Animation.SetTrigger("Shoot"); 
+                
                 if (instance.Ammo >= 3 && instance.spread)
                 {
                     var projectile2 = (GameObject)Instantiate(ProjectilePrefab,
@@ -42,7 +50,10 @@ namespace Player.Command
                     instance.Ammo -= 2;
                 }
                 LastFireTime = Time.time;
+                
             }
+
+
         }
     }
 }
