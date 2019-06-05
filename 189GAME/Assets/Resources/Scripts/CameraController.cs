@@ -52,7 +52,6 @@ public class CameraController : MonoBehaviour
             }
         }
 
-
         if (instance.Health == 0)
         {
             shakeAmount = 1.0f;
@@ -78,4 +77,13 @@ public class CameraController : MonoBehaviour
         }
 
     }
+    
+    private void LateUpdate()
+    {
+        if (instance.currState == GameManager.gameState.playing)
+        {
+            this.transform.localEulerAngles = new Vector3(90, player.transform.localEulerAngles.y - 90, 0);
+        }
+    }
+    
 }

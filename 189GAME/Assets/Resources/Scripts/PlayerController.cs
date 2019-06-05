@@ -60,7 +60,7 @@ namespace Player
         }
         private void OnCollisionStay(Collision other)
         {
-            if (other.gameObject.tag == "Planet" && Input.GetAxisRaw("Vertical") > 0)
+            if (other.gameObject.tag == "Planet" && Input.GetAxisRaw("Vertical") > 0 && instance.currState == GameManager.gameState.playing)
             {
                 this.Jump.Execute(this.gameObject);
 
