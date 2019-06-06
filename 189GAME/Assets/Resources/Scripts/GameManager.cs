@@ -294,4 +294,8 @@ public class GameManager : MonoBehaviour
         clickSound.Play();
         Application.Quit();
     }
+
+    public void Redirect(){
+        Application.OpenURL("https://mars.nasa.gov/participate/send-your-name/mars2020/");
+    }
 }
