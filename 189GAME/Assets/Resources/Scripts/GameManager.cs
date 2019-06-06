@@ -23,10 +23,14 @@ public class GameManager : MonoBehaviour
     public Text upgradeScoreDisp;
     public Text upgradeAmmoDisp;
     public Text upgradeWaveDisp;
+    public Text waveScreenScoreDisp;
+    public Text waveScreenAmmoDisp;
     public Text ammoDisp;
     public Image gameOverDisp;
     public Image upgradeScreen;
+    public Image wave_Completed;
     public Slider healthBar;
+    public Slider waveHealthBar;
     public Slider upgradeHealthBar;
     public Button spreadUp;
     public Button AOEUp;
@@ -38,7 +42,7 @@ public class GameManager : MonoBehaviour
     public bool hit;
 
     // Game states
-    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause}
+    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState}
     public gameState currState;
 
     // Singleton
@@ -80,9 +84,12 @@ public class GameManager : MonoBehaviour
         healthBar.value = Health;
         ammoDisp.text = "Ammo: " + Ammo;
 
+        waveScreenScoreDisp.text = "Score: " + Score;
+        waveScreenAmmoDisp.text = "Ammo: " + Ammo;
         upgradeAmmoDisp.text = "Ammo: " + Ammo;
         upgradeScoreDisp.text = "Score: " + Score;
         upgradeWaveDisp.text = "Wave " + Wave + " Completed";
+        waveHealthBar.value = Health;
         upgradeHealthBar.value = Health;
 
         Physics.IgnoreLayerCollision(9, 9);
@@ -112,7 +119,7 @@ public class GameManager : MonoBehaviour
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
-            upgradeScreen.gameObject.SetActive(true);
+            wave_Completed.gameObject.SetActive(true);
             pauseButton.gameObject.SetActive(false);
         }
         if (currState == gameState.playing)
@@ -121,6 +128,15 @@ public class GameManager : MonoBehaviour
             ammoDisp.gameObject.SetActive(true);
             healthBar.gameObject.SetActive(true);
             pauseButton.gameObject.SetActive(true);
+        }
+        if (currState == gameState.upgradeScreenState)
+        {
+            scoreDisp.gameObject.SetActive(false);
+            ammoDisp.gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(false);
+            wave_Completed.gameObject.SetActive(false);
+            upgradeScreen.gameObject.SetActive(true);
+            pauseButton.gameObject.SetActive(false);
         }
 
         if (Input.GetKey(KeyCode.Escape))
@@ -132,9 +148,15 @@ public class GameManager : MonoBehaviour
     // Button functions
     public void startNextWave()
     {
+        wave_Completed.gameObject.SetActive(false);
         upgradeScreen.gameObject.SetActive(false);
         Wave += 1;
         currState = gameState.playing;
+    }
+
+    public void upgradeScreenButton()
+    {
+        currState = gameState.upgradeScreenState;
     }
 
     public void RefillAmmo()
