@@ -83,6 +83,10 @@ public class GameManager : MonoBehaviour
         hit = false;
         BGMplaying = true;
         BGM = GameObject.Find("BGM").GetComponent<AudioSource>();
+        if (!BGM.isPlaying)
+        {
+            BGM.Play();
+        }
     }
 
     // Update is called once per frame
