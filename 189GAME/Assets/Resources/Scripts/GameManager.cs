@@ -35,11 +35,15 @@ public class GameManager : MonoBehaviour
     public Button spreadUp;
     public Button AOEUp;
     public Button pauseButton;
-
+    [SerializeField] 
+    private AudioSource clickSound;
+    [SerializeField] 
+    private AudioSource BGM;
     // Upgrade bools
     public bool spread;
     public bool AOE;
     public bool hit;
+    private bool BGMplaying;
 
     // Game states
     public enum gameState { bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState}
@@ -74,6 +78,8 @@ public class GameManager : MonoBehaviour
         spread = false;
         AOE = false;
         hit = false;
+        BGMplaying = true;
+        BGM.Play();
     }
 
     // Update is called once per frame
@@ -94,6 +100,18 @@ public class GameManager : MonoBehaviour
 
         Physics.IgnoreLayerCollision(9, 9);
         Physics.IgnoreLayerCollision(0, 10);
+        
+        if (currState == gameState.playing && BGMplaying == false){
+            BGM.Play();
+            BGMplaying = true;
+        }
+        if (currState != gameState.playing && 
+            currState != gameState.bootUp && 
+            BGMplaying == true){
+            BGM.Pause();
+            BGMplaying = false;
+        }
+         
 
         // Boot up game state
         if (currState == gameState.bootUp)
@@ -129,6 +147,7 @@ public class GameManager : MonoBehaviour
             healthBar.gameObject.SetActive(true);
             pauseButton.gameObject.SetActive(true);
         }
+        
         if (currState == gameState.upgradeScreenState)
         {
             scoreDisp.gameObject.SetActive(false);
@@ -148,6 +167,7 @@ public class GameManager : MonoBehaviour
     // Button functions
     public void startNextWave()
     {
+        clickSound.Play();
         wave_Completed.gameObject.SetActive(false);
         upgradeScreen.gameObject.SetActive(false);
         Wave += 1;
@@ -156,11 +176,13 @@ public class GameManager : MonoBehaviour
 
     public void upgradeScreenButton()
     {
+        clickSound.Play();
         currState = gameState.upgradeScreenState;
     }
 
     public void RefillAmmo()
     {
+        clickSound.Play();
         if (Score >= 10)
         {
             Score -= 10;
@@ -170,6 +192,7 @@ public class GameManager : MonoBehaviour
 
     public void RefillHealth()
     {
+        clickSound.Play();
         if (Score >= 50 && Health < 10)
         {
             Score -= 50;
@@ -179,6 +202,7 @@ public class GameManager : MonoBehaviour
 
     public void upgradeFireRate()
     {
+        clickSound.Play();
         if (Score >= 250)
         {
             Score -= 250;
@@ -188,6 +212,7 @@ public class GameManager : MonoBehaviour
 
     public void upgradeLaserSpeed()
     {
+        clickSound.Play();
         if (Score >= 250)
         {
             Score -= 250;
@@ -197,6 +222,7 @@ public class GameManager : MonoBehaviour
 
     public void upgradeSpread()
     {
+        clickSound.Play();
         if (Score >= 500)
         {
             Score -= 500;
@@ -207,6 +233,7 @@ public class GameManager : MonoBehaviour
 
     public void upgradeAOE()
     {
+        clickSound.Play();
         if (Score >= 1000)
         {
             Score -= 1000;
@@ -217,16 +244,19 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        clickSound.Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Menu()
     {
+        clickSound.Play();
         SceneManager.LoadScene("welcome");
     }
 
     public void PauseContinue()
     {
+        clickSound.Play();
         if (currState == gameState.pause)
         {
             currState = gameState.playing;
@@ -235,5 +265,10 @@ public class GameManager : MonoBehaviour
         {
             currState = gameState.pause;
         }
+    }
+
+    public void Quit(){
+        clickSound.Play();
+        Application.Quit();
     }
 }

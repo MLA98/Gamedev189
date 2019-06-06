@@ -4,15 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class WelcomeButtons : MonoBehaviour
 { 
+    [SerializeField] 
+    private AudioSource clickAudio;
     // Start the game
     public void SwtichToGameScene()
     {
+        clickAudio.Play();
         SceneManager.LoadScene("Game");
     }
 
     // Quit the game
     public void ExitGame()
     {
+        clickAudio.Play();
         Application.Quit();
     }
 
