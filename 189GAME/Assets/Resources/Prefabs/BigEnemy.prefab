@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf968eddb3cd7246a9d72a7b6b5e701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.5
+  moveSpeed: 1.2
   enemyHealth: 3
   damage: 2
-  scoreAdded: 10
+  scoreAdded: 20
   zigZag: 0
 --- !u!64 &5933225208568963013
 MeshCollider:

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5506792915362878287}
   - component: {fileID: 7074867491398914897}
   - component: {fileID: 942620524073696190}
+  - component: {fileID: 5585189205924637253}
   m_Layer: 11
   m_Name: HealthBuff
   m_TagString: Untagged
@@ -106,7 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a714ec7058bb6041b8049362a0e7903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthAdded: 10
   Speed: 2
 --- !u!54 &7074867491398914897
 Rigidbody:
@@ -220,3 +220,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5585189205924637253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916796239067991679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1199a816dbe8b814883d3f58479c944b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -93,10 +93,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf968eddb3cd7246a9d72a7b6b5e701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.25
+  moveSpeed: 1.75
   enemyHealth: 1
   damage: 1
-  scoreAdded: 15
+  scoreAdded: 30
   zigZag: 1
 --- !u!54 &8623345001013131087
 Rigidbody:

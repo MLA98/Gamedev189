@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7074867491398914897}
   - component: {fileID: 4700662715360201982}
   - component: {fileID: 4766694263928298361}
+  - component: {fileID: 3942306612963355909}
   m_Layer: 11
   m_Name: AmmoBuff
   m_TagString: Untagged
@@ -220,3 +221,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AmmoAdded: 50
   Speed: 2
+--- !u!114 &3942306612963355909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916796239067991679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1199a816dbe8b814883d3f58479c944b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

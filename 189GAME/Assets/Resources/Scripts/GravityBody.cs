@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class GravityBody : MonoBehaviour
 {
-    public GravityAttractor attractor;
-    // Start is called before the first frame update
+    private GravityAttractor attractor;
+
+    private void Awake()
+    {
+        attractor = GameObject.Find("Mars").GetComponent<GravityAttractor>();
+    }
+
     void Start()
     {
         transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;

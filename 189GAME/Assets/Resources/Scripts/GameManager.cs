@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
             healthRefill.interactable = false;
         }
 
+        Physics.IgnoreLayerCollision(10, 11);
         Physics.IgnoreLayerCollision(11, 9);
         Physics.IgnoreLayerCollision(9, 9);
         Physics.IgnoreLayerCollision(0, 10);

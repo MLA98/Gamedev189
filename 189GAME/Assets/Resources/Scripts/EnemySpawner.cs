@@ -26,8 +26,8 @@ public class EnemySpawner : MonoBehaviour
         if (instance.Wave < 8)
         {
             // Increasing difficulty per wave
-            waveLimit = instance.Wave * 25;
-            spawnRate = 3 - 0.1f * (instance.Wave - 1);
+            waveLimit = instance.Wave * 12;
+            spawnRate = 2 - 0.1f * (instance.Wave - 1);
             timer += Time.deltaTime;
             if (timer >= spawnRate && instance.currState == GameManager.gameState.playing && enemyCounter <= waveLimit)
             {

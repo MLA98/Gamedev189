@@ -22,8 +22,8 @@ public class SShipSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        waveLimit = instance.Wave * 2;
-        spawnRate = 20 + 0.1f * (instance.Wave - 1);
+        waveLimit = instance.Wave * 4;
+        spawnRate = 5 * instance.Wave;
         timer += Time.deltaTime;
         if (timer >= spawnRate && instance.currState == GameManager.gameState.playing && SShipCounter <= waveLimit)
         {
