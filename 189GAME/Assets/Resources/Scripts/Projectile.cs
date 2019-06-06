@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DestroyTimer >= 4f)
+        if (DestroyTimer >= 7f)
         {
             Destroy(this.gameObject);
         }

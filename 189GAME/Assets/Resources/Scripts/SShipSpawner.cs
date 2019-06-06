@@ -30,12 +30,12 @@ public class SShipSpawner : MonoBehaviour
             // Offset at corners of the screen
             Vector3 offset;
             offset.x = Random.value > 0.5f ?
-                Random.Range(-4f, -3f) :
-                Random.Range(3f, 4f);
+                Random.Range(-3.5f, -2.5f) :
+                Random.Range(2.5f, 3.5f);
             offset.y = 0f;
             offset.z = Random.value > 0.5f ?
-                Random.Range(-5f, -4f) :
-                Random.Range(4f, 5f);
+                Random.Range(-4.5f, -3.5f) :
+                Random.Range(3.5f, 4.5f);
             var SShip = (GameObject)Instantiate(SShipPrefab, offset, Quaternion.identity);
             timer = 0f;
             SShipCounter += 1;
