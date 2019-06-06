@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.3
-  enemyHealth: 100
+  enemyHealth: 75
   damage: 10
-  scoreAdded: 100
+  scoreAdded: 1000
   zigZag: 0
 --- !u!64 &5933225208568963013
 MeshCollider:

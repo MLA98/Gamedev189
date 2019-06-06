@@ -41,12 +41,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] 
     private AudioSource clickSound;
+    [SerializeField]
     private AudioSource BGM;
+    [SerializeField]
+    private AudioClip bossMusic;
     // Upgrade bools
     public bool spread;
     public bool AOE;
     public bool hit;
-    private bool BGMplaying;
 
     // Game states
     public enum gameState { bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won}
@@ -81,12 +83,7 @@ public class GameManager : MonoBehaviour
         spread = false;
         AOE = false;
         hit = false;
-        BGMplaying = true;
-        BGM = GameObject.Find("BGM").GetComponent<AudioSource>();
-        if (!BGM.isPlaying)
-        {
-            BGM.Play();
-        }
+        BGM.Play();
     }
 
     // Update is called once per frame
@@ -117,15 +114,18 @@ public class GameManager : MonoBehaviour
         Physics.IgnoreLayerCollision(9, 9);
         Physics.IgnoreLayerCollision(0, 10);
         
-        if (currState == gameState.playing && BGMplaying == false){
+        if (Wave == 8)
+        {
+            BGM.clip = bossMusic;
+        }
+
+        if (currState == gameState.playing && !BGM.isPlaying){
             BGM.Play();
-            BGMplaying = true;
         }
         if (currState != gameState.playing && 
             currState != gameState.bootUp && 
-            BGMplaying == true){
+            BGM.isPlaying) {
             BGM.Pause();
-            BGMplaying = false;
         }
          
 

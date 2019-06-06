@@ -77,8 +77,8 @@ public class EnemyController : MonoBehaviour
         {
             enemyHealth--;
             Destroy(collision.collider.gameObject);
-            // Knockback (probably unnecessary)
-            //this.GetComponent<Rigidbody>().AddForce(-transform.forward * 5);
+            // Knockback
+            this.GetComponent<Rigidbody>().AddForce(-transform.forward * 0.2f);
             if (enemyHealth == 0)
             {
                 collapsedSound.Play();
