@@ -15,7 +15,6 @@ public class EnemyController : MonoBehaviour
     private float scoreAdded;
     [SerializeField]
     private bool zigZag;
-    [SerializeField]
     private AudioSource collapsedSound;
 
     private GameManager instance;
@@ -23,6 +22,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        collapsedSound = this.GetComponent<AudioSource>();
         instance = GameManager.Instance;
         planet = GameObject.FindGameObjectWithTag("Planet").transform;
     }
@@ -77,7 +77,8 @@ public class EnemyController : MonoBehaviour
         {
             enemyHealth--;
             Destroy(collision.collider.gameObject);
-            this.GetComponent<Rigidbody>().AddForce(-transform.forward * 5);
+            // Knockback (probably unnecessary)
+            //this.GetComponent<Rigidbody>().AddForce(-transform.forward * 5);
             if (enemyHealth == 0)
             {
                 collapsedSound.Play();

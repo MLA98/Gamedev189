@@ -11,16 +11,11 @@ public class SShipController : MonoBehaviour
     [SerializeField]
     private float Speed;
     [SerializeField]
-    private float Health;
-    [SerializeField]
     private float ScoreAdded;
     [SerializeField]
     private GameObject AmmoBuff;
     [SerializeField]
     private GameObject HealthBuff;
-    [SerializeField]
-    private float Damage;
-    [SerializeField]
     private AudioSource CollapsedSound;
 
     private GameManager instance;
@@ -29,8 +24,16 @@ public class SShipController : MonoBehaviour
     void Start()
     {
         instance = GameManager.Instance;
-        Target = new Vector3(Random.Range(-3, 2), 0, Random.Range(-5, 4));
-        Debug.Log(Target);
+        CollapsedSound = GetComponent<AudioSource>();
+        // Move from one side of the screen to the other
+        if (Random.value > 0.5)
+        {
+            Target = new Vector3(-this.transform.localPosition.x, 0, this.transform.localPosition.z);
+        }
+        else
+        {
+            Target = new Vector3(this.transform.localPosition.x, 0, -this.transform.localPosition.z);
+        }
         this.transform.LookAt(Target);
     }
 
@@ -50,52 +53,37 @@ public class SShipController : MonoBehaviour
             }
         }
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.name == "Mars" || collision.collider.name == "Player")
-        {
-            CollapsedSound.Play();
-            transform.position = new Vector3(transform.position.x,
-                            transform.position.y,
-                            transform.position.z * 99999f);
-            Destroy(this.gameObject, 2.355f);
-            instance.Health -= Damage;
-            instance.hit = true;
-            if (instance.Health == 0)
-            {
-                var planet = GameObject.FindGameObjectWithTag("Planet");
-                Destroy(planet.gameObject);
-                Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
-                instance.currState = GameManager.gameState.gameOver;
-            }
-        }
         if (collision.collider.tag == "Laser")
         {
-            CollapsedSound.Play();
-            Health--;
-            Debug.Log("Health is" + Health);
-            Destroy(collision.collider.gameObject);
-            this.GetComponent<Rigidbody>().AddForce(-transform.forward * 5);
-            if (Health <= 0)
+            // If health is needed
+            if (instance.Health <= 9)
             {
                 int dice = Random.Range((int)0, (int)2);
                 switch (dice)
                 {
                     case 0:
                         Instantiate(AmmoBuff, this.transform.position, Quaternion.identity);
-                        Debug.Log("Instantiated");
                         break;
                     case 1:
                         Instantiate(HealthBuff, this.transform.position, Quaternion.identity);
-                        Debug.Log("Instantiated");
                         break;
                 }
-                transform.position = new Vector3(transform.position.x,
-                transform.position.y,
-                transform.position.z * 99999f);
-                Destroy(this.gameObject, 2.355f);
-                instance.Score += ScoreAdded;
+            }
+            // Else just give ammo
+            else
+            {
+                Instantiate(AmmoBuff, this.transform.position, Quaternion.identity);
             }
         }
+        Destroy(collision.collider.gameObject);
+        CollapsedSound.Play();
+        transform.position = new Vector3(transform.position.x,
+        transform.position.y,
+        transform.position.z * 99999f);
+        Destroy(this.gameObject, 2.355f);
+        instance.Score += ScoreAdded;
     }
 }

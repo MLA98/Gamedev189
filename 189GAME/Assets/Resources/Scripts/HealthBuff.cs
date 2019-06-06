@@ -6,10 +6,7 @@ public class HealthBuff : MonoBehaviour
 {
     private GameObject Mars;
     [SerializeField]
-    private float HealthAdded;
-    [SerializeField]
     private float Speed;
-    [SerializeField]
     private AudioSource PickUpSound;
 
     private GameManager instance;
@@ -18,6 +15,7 @@ public class HealthBuff : MonoBehaviour
     void Start()
     {
         instance = GameManager.Instance;
+        PickUpSound = GetComponent<AudioSource>();
         Mars = GameObject.FindGameObjectWithTag("Planet");
         this.transform.LookAt(Mars.transform);
     }
@@ -27,10 +25,7 @@ public class HealthBuff : MonoBehaviour
     {
         if (instance.currState == GameManager.gameState.playing)
         {
-            if (Vector3.Distance(transform.position, Mars.transform.position) >= 0)
-            {
                 transform.position += transform.forward * Speed * Time.deltaTime;
-            }
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -42,7 +37,8 @@ public class HealthBuff : MonoBehaviour
                             transform.position.y,
                             transform.position.z * 99999f);
             Destroy(this.gameObject, 2.355f);
-            instance.Health += HealthAdded;
+            // Set health to max instead of adding over max
+            instance.Health = 10;
         }
     }
 }

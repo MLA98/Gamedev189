@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4295180792193580671}
   - component: {fileID: 3713026694622346074}
   - component: {fileID: 5933225208568963013}
+  - component: {fileID: 3336350085090520472}
   m_Layer: 9
   m_Name: BigEnemy
   m_TagString: Enemy
@@ -30,9 +31,8 @@ Transform:
   m_GameObject: {fileID: 2272020307783627389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.86, y: 0.05, z: -0.071}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_Children:
-  - {fileID: 6406012324609874389}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -109,12 +109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf968eddb3cd7246a9d72a7b6b5e701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.3
+  moveSpeed: 0.5
   enemyHealth: 3
   damage: 2
   scoreAdded: 10
   zigZag: 0
-  collapsedSound: {fileID: 6339231366563451799}
 --- !u!64 &5933225208568963013
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -129,44 +128,13 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 5c929a1e7e6053f499c799f0b76fc965, type: 3}
---- !u!1 &6685594879817660543
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6406012324609874389}
-  - component: {fileID: 6339231366563451799}
-  m_Layer: 0
-  m_Name: CollisonSound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6406012324609874389
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6685594879817660543}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3005555377758789959}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &6339231366563451799
+--- !u!82 &3336350085090520472
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6685594879817660543}
+  m_GameObject: {fileID: 2272020307783627389}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}

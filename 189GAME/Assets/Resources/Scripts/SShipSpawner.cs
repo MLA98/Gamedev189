@@ -23,18 +23,19 @@ public class SShipSpawner : MonoBehaviour
     void Update()
     {
         waveLimit = instance.Wave * 2;
-        spawnRate = 10 + 0.1f * (instance.Wave - 1);
+        spawnRate = 20 + 0.1f * (instance.Wave - 1);
         timer += Time.deltaTime;
         if (timer >= spawnRate && instance.currState == GameManager.gameState.playing && SShipCounter <= waveLimit)
         {
+            // Offset at corners of the screen
             Vector3 offset;
             offset.x = Random.value > 0.5f ?
-                Random.Range(-8f, -10f) :
-                Random.Range(8f, 10f);
+                Random.Range(-4f, -3f) :
+                Random.Range(3f, 4f);
             offset.y = 0f;
             offset.z = Random.value > 0.5f ?
-                Random.Range(-10f, -12f) :
-                Random.Range(10f, 12f);
+                Random.Range(-5f, -4f) :
+                Random.Range(4f, 5f);
             var SShip = (GameObject)Instantiate(SShipPrefab, offset, Quaternion.identity);
             timer = 0f;
             SShipCounter += 1;

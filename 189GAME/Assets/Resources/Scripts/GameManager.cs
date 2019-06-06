@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     // UI
     public Text scoreDisp;
     public Text gameOverScoreDisp;
+    public Text winScoreDisp;
     public Text upgradeScoreDisp;
     public Text upgradeAmmoDisp;
     public Text upgradeWaveDisp;
@@ -29,15 +30,17 @@ public class GameManager : MonoBehaviour
     public Image gameOverDisp;
     public Image upgradeScreen;
     public Image wave_Completed;
+    public Image winScreen;
     public Slider healthBar;
     public Slider waveHealthBar;
     public Slider upgradeHealthBar;
     public Button spreadUp;
     public Button AOEUp;
+    public Button healthRefill;
     public Button pauseButton;
+
     [SerializeField] 
     private AudioSource clickSound;
-    [SerializeField] 
     private AudioSource BGM;
     // Upgrade bools
     public bool spread;
@@ -46,7 +49,7 @@ public class GameManager : MonoBehaviour
     private bool BGMplaying;
 
     // Game states
-    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState}
+    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won}
     public gameState currState;
 
     // Singleton
@@ -79,7 +82,7 @@ public class GameManager : MonoBehaviour
         AOE = false;
         hit = false;
         BGMplaying = true;
-        BGM.Play();
+        BGM = GameObject.Find("BGM").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -89,7 +92,7 @@ public class GameManager : MonoBehaviour
         gameOverScoreDisp.text = "Score: " + Score;
         healthBar.value = Health;
         ammoDisp.text = "Ammo: " + Ammo;
-
+        winScoreDisp.text = "Score: " + Score;
         waveScreenScoreDisp.text = "Score: " + Score;
         waveScreenAmmoDisp.text = "Ammo: " + Ammo;
         upgradeAmmoDisp.text = "Ammo: " + Ammo;
@@ -97,7 +100,16 @@ public class GameManager : MonoBehaviour
         upgradeWaveDisp.text = "Wave " + Wave + " Completed";
         waveHealthBar.value = Health;
         upgradeHealthBar.value = Health;
+        if (Health < 10)
+        {
+            healthRefill.interactable = true;
+        }
+        else
+        {
+            healthRefill.interactable = false;
+        }
 
+        Physics.IgnoreLayerCollision(11, 9);
         Physics.IgnoreLayerCollision(9, 9);
         Physics.IgnoreLayerCollision(0, 10);
         
@@ -117,7 +129,7 @@ public class GameManager : MonoBehaviour
         if (currState == gameState.bootUp)
         {
             bootUpTimer += Time.deltaTime;
-            if (bootUpTimer >= 3.2f)
+            if (bootUpTimer >= 2.7f)
             {
                 currState = gameState.playing;
             }
@@ -157,7 +169,14 @@ public class GameManager : MonoBehaviour
             upgradeScreen.gameObject.SetActive(true);
             pauseButton.gameObject.SetActive(false);
         }
-
+        if (currState == gameState.won)
+        {
+            scoreDisp.gameObject.SetActive(false);
+            ammoDisp.gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(false);
+            pauseButton.gameObject.SetActive(false);
+            winScreen.gameObject.SetActive(true);
+        }
         if (Input.GetKey(KeyCode.Escape))
         {
             PauseContinue();

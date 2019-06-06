@@ -78,6 +78,7 @@ public class CameraController : MonoBehaviour
 
     }
     
+    // Follow player rotation (might change to be option instead)
     private void LateUpdate()
     {
         if (instance.currState == GameManager.gameState.playing)
