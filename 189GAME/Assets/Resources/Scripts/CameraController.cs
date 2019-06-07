@@ -81,9 +81,13 @@ public class CameraController : MonoBehaviour
     // Follow player rotation (might change to be option instead)
     private void LateUpdate()
     {
-        if (instance.currState == GameManager.gameState.playing)
+        if (instance.currState == GameManager.gameState.playing && instance.followCam)
         {
             this.transform.localEulerAngles = new Vector3(90, player.transform.localEulerAngles.y - 90, 0);
+        }
+        if (instance.currState == GameManager.gameState.playing && !instance.followCam)
+        {
+            this.transform.localEulerAngles = new Vector3(90, 90, 0);
         }
     }
     

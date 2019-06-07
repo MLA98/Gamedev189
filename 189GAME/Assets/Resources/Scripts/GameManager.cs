@@ -27,10 +27,12 @@ public class GameManager : MonoBehaviour
     public Text waveScreenScoreDisp;
     public Text waveScreenAmmoDisp;
     public Text ammoDisp;
+    public Text waveDisp;
     public Image gameOverDisp;
     public Image upgradeScreen;
     public Image wave_Completed;
     public Image winScreen;
+    public Image pauseScreen;
     public Slider healthBar;
     public Slider waveHealthBar;
     public Slider upgradeHealthBar;
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
     public bool spread;
     public bool AOE;
     public bool hit;
+    public bool followCam;
 
     // Game states
     public enum gameState { bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won}
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
         spread = false;
         AOE = false;
         hit = false;
+        followCam = false;
         BGM.Play();
     }
 
@@ -99,6 +103,7 @@ public class GameManager : MonoBehaviour
         upgradeAmmoDisp.text = "Ammo: " + Ammo;
         upgradeScoreDisp.text = "Score: " + Score;
         upgradeWaveDisp.text = "Wave " + Wave + " Completed";
+        waveDisp.text = "Wave " + Wave;
         waveHealthBar.value = Health;
         upgradeHealthBar.value = Health;
         if (Health < 10)
@@ -143,6 +148,7 @@ public class GameManager : MonoBehaviour
         // UI in different game states
         if (currState == gameState.gameOver)
         {
+            waveDisp.gameObject.SetActive(false);
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
@@ -151,6 +157,7 @@ public class GameManager : MonoBehaviour
         }
         if (currState == gameState.waveCompleted)
         {
+            waveDisp.gameObject.SetActive(false);
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
@@ -159,6 +166,7 @@ public class GameManager : MonoBehaviour
         }
         if (currState == gameState.playing)
         {
+            waveDisp.gameObject.SetActive(true);
             scoreDisp.gameObject.SetActive(true);
             ammoDisp.gameObject.SetActive(true);
             healthBar.gameObject.SetActive(true);
@@ -167,6 +175,7 @@ public class GameManager : MonoBehaviour
         
         if (currState == gameState.upgradeScreenState)
         {
+            waveDisp.gameObject.SetActive(false);
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
@@ -176,13 +185,14 @@ public class GameManager : MonoBehaviour
         }
         if (currState == gameState.won)
         {
+            waveDisp.gameObject.SetActive(false);
             scoreDisp.gameObject.SetActive(false);
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
             pauseButton.gameObject.SetActive(false);
             winScreen.gameObject.SetActive(true);
         }
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseContinue();
         }
@@ -284,10 +294,12 @@ public class GameManager : MonoBehaviour
         if (currState == gameState.pause)
         {
             currState = gameState.playing;
+            pauseScreen.gameObject.SetActive(false);
         }
         else if (currState == gameState.playing)
         {
             currState = gameState.pause;
+            pauseScreen.gameObject.SetActive(true);
         }
     }
 
@@ -298,5 +310,17 @@ public class GameManager : MonoBehaviour
 
     public void Redirect(){
         Application.OpenURL("https://mars.nasa.gov/participate/send-your-name/mars2020/");
+    }
+
+    public void ChangeCamera()
+    {
+        if (followCam)
+        {
+            followCam = false;
+        }
+        else
+        {
+            followCam = true;
+        }
     }
 }
