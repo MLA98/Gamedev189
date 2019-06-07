@@ -34,24 +34,24 @@ namespace Player
             if (instance.currState == GameManager.gameState.playing)
             {
                 // Movement
-                if (Input.GetAxisRaw("Horizontal") > 0)
+                if (SimpleInput.GetAxisRaw("Horizontal") > 0)
                 {
                     this.Clockwise.Execute(this.gameObject);
                     Animation.SetBool("Running", true);
                 }
-                else if (Input.GetAxisRaw("Horizontal") < 0)
+                else if (SimpleInput.GetAxisRaw("Horizontal") < 0)
                 {
                     this.CounterClockwise.Execute(this.gameObject);
                     Animation.SetBool("Running", true);
                 }
 
                 // Battle
-                if (Input.GetButton("Jump"))
+                if (SimpleInput.GetButton("Jump"))
                 {
                     this.Shoot.Execute(this.gameObject);
                     this.GetComponent<AudioSource>().Play();
                 }
-                if (Input.GetAxisRaw("Horizontal") == 0)
+                if (SimpleInput.GetAxisRaw("Horizontal") == 0)
                 {
                     Animation.SetBool("Running", false);
                 }
@@ -60,7 +60,7 @@ namespace Player
         }
         private void OnCollisionStay(Collision other)
         {
-            if (other.gameObject.tag == "Planet" && Input.GetAxisRaw("Vertical") > 0 && instance.currState == GameManager.gameState.playing)
+            if (other.gameObject.tag == "Planet" && SimpleInput.GetAxisRaw("Vertical") > 0 && instance.currState == GameManager.gameState.playing)
             {
                 this.Jump.Execute(this.gameObject);
 
