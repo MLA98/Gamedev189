@@ -23,7 +23,6 @@ public class CameraController : MonoBehaviour
     {
         instance = GameManager.Instance;
         LerpDuration = 2f;
-        startLerpTime = Time.time;
         startPos = transform.localPosition;
         endPos = startPos + new Vector3(0, 4.5f, 0);
         startRot = 90;
@@ -35,6 +34,11 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (instance.currState == GameManager.gameState.title)
+        {
+            startLerpTime = Time.time;
+        }
         // Lerping camera position and rotation for boot up
         if (instance.currState == GameManager.gameState.bootUp)
         {

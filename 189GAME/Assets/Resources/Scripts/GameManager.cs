@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public Image wave_Completed;
     public Image winScreen;
     public Image pauseScreen;
+    public Image titleScreen;
     public Slider healthBar;
     public Slider waveHealthBar;
     public Slider upgradeHealthBar;
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioSource BGM;
     [SerializeField]
+    private AudioClip defaultMusic;
+    [SerializeField]
     private AudioClip bossMusic;
     // Upgrade bools
     public bool spread;
@@ -54,7 +57,7 @@ public class GameManager : MonoBehaviour
     public bool followCam;
 
     // Game states
-    public enum gameState { bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won}
+    public enum gameState {title, bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won}
     public gameState currState;
 
     // Singleton
@@ -76,7 +79,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currState = gameState.bootUp;
+        currState = gameState.title;
         Health = 10;
         Score = 0;
         Wave = 1;
@@ -125,11 +128,12 @@ public class GameManager : MonoBehaviour
             BGM.clip = bossMusic;
         }
 
-        if (currState == gameState.playing && !BGM.isPlaying){
+        if ((currState == gameState.playing || currState == gameState.bootUp) && !BGM.isPlaying){
             BGM.Play();
         }
         if (currState != gameState.playing && 
-            currState != gameState.bootUp && 
+            currState != gameState.bootUp &&
+            currState != gameState.title &&
             BGM.isPlaying) {
             BGM.Pause();
         }
@@ -143,6 +147,8 @@ public class GameManager : MonoBehaviour
             {
                 currState = gameState.playing;
             }
+            titleScreen.gameObject.SetActive(false);
+            BGM.clip = defaultMusic;
         }
 
         // UI in different game states
@@ -322,5 +328,23 @@ public class GameManager : MonoBehaviour
         {
             followCam = true;
         }
+    }
+
+    // Mute the volume
+    public void VolumeOn()
+    {
+        if (AudioListener.volume != 0)
+        {
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            AudioListener.volume = 1;
+        }
+    }
+
+    public void startPlay()
+    {
+        currState = gameState.bootUp;
     }
 }
