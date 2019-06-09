@@ -383,7 +383,7 @@ public class GameManager : MonoBehaviour
 
         listOfDiaryEntries[2] = "March 20, 20xx";
 
-        listOfDiaryEntries[3] = "April 15, 20xx \n\n It looks like the enemy is looking for a change of strategy. We've spotted smaller and more agile ships in the distance. It won't be long before they reach our home. We should consider upgrading our lasers to help us shoot them down easier... \n\n\t- Musky"
+        listOfDiaryEntries[3] = "April 15, 20xx \n\n It looks like the enemy is looking for a change of strategy. We've spotted smaller and more agile ships in the distance. It won't be long before they reach our home. We should consider upgrading our lasers to help us shoot them down easier... \n\n\t- Musky";
     }
 
 }
