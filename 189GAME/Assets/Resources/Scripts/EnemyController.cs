@@ -62,7 +62,7 @@ public class EnemyController : MonoBehaviour
             Destroy(this.gameObject, 2.355f);
             instance.Health -= damage;
             instance.hit = true;
-            if (instance.Health == 0)
+            if (instance.Health <= 0)
             {
                 planet.GetComponent<AudioSource>().Play();
                 var em = planet.GetComponent<ParticleSystem>().emission;
