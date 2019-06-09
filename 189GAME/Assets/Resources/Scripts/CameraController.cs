@@ -85,13 +85,23 @@ public class CameraController : MonoBehaviour
     // Follow player rotation (might change to be option instead)
     private void LateUpdate()
     {
-        if (instance.currState == GameManager.gameState.playing && instance.followCam)
+        if ((instance.currState == GameManager.gameState.playing || instance.currState == GameManager.gameState.pause) && instance.followCam)
         {
-            this.transform.localEulerAngles = new Vector3(90, player.transform.localEulerAngles.y - 90, 0);
+            var endPosition = new Vector3(90, player.transform.localEulerAngles.y - 90, 0);
+            Quaternion endQr = Quaternion.Euler(endPosition);
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, endQr, Time.deltaTime * 2.5f);
+            startLerpTime = Time.time;
         }
-        if (instance.currState == GameManager.gameState.playing && !instance.followCam)
+        if ((instance.currState == GameManager.gameState.playing || instance.currState == GameManager.gameState.pause) && !instance.followCam)
         {
-            this.transform.localEulerAngles = new Vector3(90, 90, 0);
+            currentLerpTime = Time.time - startLerpTime;
+            float perc = currentLerpTime / LerpDuration;
+            if (perc <= 1f)
+            {
+                var endPosition = new Vector3(90, 90, 0);
+                Quaternion endQr = Quaternion.Euler(endPosition);
+                this.transform.rotation = Quaternion.Lerp(this.transform.rotation, endQr, perc);
+            }
         }
     }
     
