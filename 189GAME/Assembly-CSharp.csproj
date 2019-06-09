@@ -53,10 +53,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
+     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
      <Compile Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Scripts\HUDFPS.cs" />
      <Compile Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Scripts\PDS_GameController.cs" />
      <Compile Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Scripts\ScrollingUVs_PDS.cs" />
      <Compile Include="Assets\PSD Logo Templates\Sample\IconPreview.cs" />
+     <Compile Include="Assets\Resources\Scripts\AmmoBuff.cs" />
      <Compile Include="Assets\Resources\Scripts\CameraController.cs" />
      <Compile Include="Assets\Resources\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Resources\Scripts\EnemySpawner.cs" />
@@ -65,8 +73,10 @@
      <Compile Include="Assets\Resources\Scripts\GravityAttractor.cs" />
      <Compile Include="Assets\Resources\Scripts\GravityBody.cs" />
      <Compile Include="Assets\Resources\Scripts\HealthBuff.cs" />
+     <Compile Include="Assets\Resources\Scripts\HUDController.cs" />
      <Compile Include="Assets\Resources\Scripts\IPlayerCommand.cs" />
      <Compile Include="Assets\Resources\Scripts\KeepLoaded.cs" />
+     <Compile Include="Assets\Resources\Scripts\Mobile\WelcomeButtons_Mobile.cs" />
      <Compile Include="Assets\Resources\Scripts\MovePlayerClockwise.cs" />
      <Compile Include="Assets\Resources\Scripts\MovePlayerCounterClockwise.cs" />
      <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
@@ -76,6 +86,36 @@
      <Compile Include="Assets\Resources\Scripts\SShipController.cs" />
      <Compile Include="Assets\Resources\Scripts\SShipSpawner.cs" />
      <Compile Include="Assets\Resources\Scripts\WelcomeButtons.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Example\ExamplePlayerController.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\AxisInputKeyboard.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\AxisInputMouse.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\AxisInputPinchGesture.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\AxisInputRotateGesture.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\AxisInputSwipeGesture.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\AxisInputUI.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\Dpad.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\Joystick.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\SteeringWheel.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\AxisInputs\Touchpad.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\ButtonInputs\ButtonInputKeyboard.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\ButtonInputs\ButtonInputSwipeGesture.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\ButtonInputs\ButtonInputUI.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\BaseInput.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\ISimpleInputDraggable.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\ISimpleInputDraggableMultiTouch.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\SelectivePointerInput.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\SimpleInputDragListener.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\SimpleInputMultiDragListener.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\SimpleInputUtils.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\Core\SwipeGestureBase.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\KeyInputs\KeyInputKeyboard.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\KeyInputs\KeyInputSwipeGesture.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\KeyInputs\KeyInputUI.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\MouseButtonInputs\MouseButtonInputKeyboard.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\MouseButtonInputs\MouseButtonInputSwipeGesture.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\MouseButtonInputs\MouseButtonInputUI.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\SimpleInput.cs" />
+     <Compile Include="Assets\Resources\SimpleInput\Scripts\SimpleInputHelper.cs" />
      <Compile Include="Assets\Starfield Skybox\Demo\Script\LookCamera.cs" />
      <Compile Include="Assets\Stylized Astronaut\Character\Player.cs" />
      <Compile Include="Assets\Stylized Astronaut\Character\ThirdPersonCamera.cs" />
@@ -92,6 +132,7 @@
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\Dissolve_Alpha_Additive_softrim.shader" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\Dissolve_Alpha_Unlit_softrim.shader" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\softrim\Particle_softrim_add_stretch.shader" />
+     <None Include="Assets\Resources\SimpleInput\README.txt" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\DissolveSoft_Alpha_Unlit_Opacity_softrim.shader" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\DissolveSoft_Alpha_Unlit_softrim.shader" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\unity5\Particle_Softrim_Dissolve_additive.shader" />
@@ -99,9 +140,11 @@
      <None Include="Assets\PSD Logo Templates\Fonts\Passion_One\OFL.txt" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\ReadMe.txt" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\Dissolve_Alpha_Unlit_Opacity_softrim.shader" />
+     <None Include="Assets\Sci-Fi Music Pack\License.txt" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\softrim\Particle_softrim_alpha_stretch.shader" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\DissolveSoft_Alpha_Unlit_Opacity.shader" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\softrim\Particle_softrim_add.shader" />
+     <None Include="Assets\Resources\SimpleInput\Credits.txt" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\Dissolve_Alpha_Additive.shader" />
      <None Include="Assets\Particle Dissolve Shader by Moonflower Carnivore\Shaders\legacy\DissolveSoft_Alpha_Additive_Opacity.shader" />
      <None Include="Assets\PSD Logo Templates\Fonts\Changa_One\OFL.txt" />

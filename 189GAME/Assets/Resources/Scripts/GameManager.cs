@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     // Universal values
     public float Score;
     public float Health;
-    public float Wave;
+    public int Wave;
     public float Ammo;
     public float PlayerFireRate;
     public float SpeedFactor;
@@ -28,8 +28,10 @@ public class GameManager : MonoBehaviour
     public Text waveScreenAmmoDisp;
     public Text ammoDisp;
     public Text waveDisp;
+    public Text diaryEntry;
     public Image gameOverDisp;
     public Image upgradeScreen;
+    public Image dialogueScreen;
     public Image wave_Completed;
     public Image winScreen;
     public Image pauseScreen;
@@ -57,8 +59,13 @@ public class GameManager : MonoBehaviour
     public bool followCam;
 
     // Game states
-    public enum gameState {title, bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won}
+    public enum gameState {title, bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won, dialogueScreenState}
     public gameState currState;
+
+    // Array to store Diary entry stories
+    // The text in each entry is assigned to each array entry
+    // at the bottom of this source file.
+    private string [] listOfDiaryEntries = new string[7];
 
     // Singleton
     private static GameManager instance;
@@ -109,6 +116,7 @@ public class GameManager : MonoBehaviour
         waveDisp.text = "Wave " + Wave;
         waveHealthBar.value = Health;
         upgradeHealthBar.value = Health;
+        diaryEntry.text = listOfDiaryEntries[Wave-1];
         if (Health < 10)
         {
             healthRefill.interactable = true;
@@ -168,6 +176,7 @@ public class GameManager : MonoBehaviour
             ammoDisp.gameObject.SetActive(false);
             healthBar.gameObject.SetActive(false);
             wave_Completed.gameObject.SetActive(true);
+            dialogueScreen.gameObject.SetActive(false);
             pauseButton.gameObject.SetActive(false);
         }
         if (currState == gameState.playing)
@@ -188,6 +197,16 @@ public class GameManager : MonoBehaviour
             wave_Completed.gameObject.SetActive(false);
             upgradeScreen.gameObject.SetActive(true);
             pauseButton.gameObject.SetActive(false);
+        }
+        if (currState == gameState.dialogueScreenState)
+        {
+            waveDisp.gameObject.SetActive(false);
+            scoreDisp.gameObject.SetActive(false);
+            ammoDisp.gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(false);
+            wave_Completed.gameObject.SetActive(false);
+            dialogueScreen.gameObject.SetActive(true);
+            pauseButton.gameObject.SetActive(false);            
         }
         if (currState == gameState.won)
         {
@@ -220,6 +239,17 @@ public class GameManager : MonoBehaviour
         currState = gameState.upgradeScreenState;
     }
 
+    public void dialogueScreenButton()
+    {
+        clickSound.Play();
+        currState = gameState.dialogueScreenState;
+    }
+
+    public void backToMenu()
+    {
+        clickSound.Play();
+        currState = gameState.waveCompleted;
+    }
     public void RefillAmmo()
     {
         clickSound.Play();
@@ -346,5 +376,15 @@ public class GameManager : MonoBehaviour
     public void startPlay()
     {
         currState = gameState.bootUp;
+        
+        listOfDiaryEntries[0] = "Junaury 2, 20xx \n\n The invaders have been coming at higher frequencies. We had almost lost hope, but we found that we can intercept their resources from their black supply ships that pass by. We are able to extract energy from their green capsules to recharge my lasers, and the purple capsules have natural resources to repair my precious planet.\n\n\t- Musky";
+
+        listOfDiaryEntries[1] = "February 27, 20xx \n\n We have spotted in the distance much larger ships. We must take caution as they approach. I do not think that They will be easy to take down in one shot...\n\n\t- Musky";
+
+        listOfDiaryEntries[2] = "March 20, 20xx";
+
+        listOfDiaryEntries[3] = "April 15, 20xx \n\n It looks like the enemy is looking for a change of strategy. We've spotted smaller and more agile ships in the distance. It won't be long before they reach our home. We should consider upgrading our lasers to help us shoot them down easier... \n\n\t- Musky"
     }
+
 }
+
