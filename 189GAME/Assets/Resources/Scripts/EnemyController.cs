@@ -51,6 +51,23 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void MeleeAttacked()
+    {
+        enemyHealth--;
+        // Knockback
+        this.GetComponent<Rigidbody>().AddForce(-transform.forward * 0.2f);
+        if (enemyHealth == 0)
+        {
+            instance.Health += damage;
+            collapsedSound.Play();
+            transform.position = new Vector3(transform.position.x,
+                            transform.position.y,
+                            transform.position.z * 99999f);
+            Destroy(this.gameObject, 2.355f);
+            instance.Score += scoreAdded;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.name == "Mars" || collision.collider.name == "Player")
