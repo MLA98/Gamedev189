@@ -11,6 +11,7 @@ namespace Player
         private IPlayerCommand Jump;
         private Animator Animation;
         private GameManager instance;
+        private bool OnAir;
         [SerializeField] private float RunningSpeed;
         
         void Start()
@@ -58,6 +59,18 @@ namespace Player
             
             }
         }
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.tag == "Planet" && instance.currState == GameManager.gameState.playing)
+            {
+                OnAir = false;
+            }
+            if(other.gameObject.tag == "Enemy" && OnAir == true && instance.currState == GameManager.gameState.playing)
+            {
+                var Enemy = other.gameObject;
+                Enemy.GetComponent<EnemyController>().MeleeAttacked();
+            }
+        }
         private void OnCollisionStay(Collision other)
         {
             if (other.gameObject.tag == "Planet" && SimpleInput.GetAxisRaw("Vertical") > 0 && instance.currState == GameManager.gameState.playing)
@@ -65,6 +78,13 @@ namespace Player
                 this.Jump.Execute(this.gameObject);
 
                 Animation.Play("StartJump");
+            }
+        }
+        private void OnCollisionExit(Collision other)
+        {
+            if(other.gameObject.tag == "Planet" && instance.currState == GameManager.gameState.playing)
+            {
+                OnAir = true;
             }
         }
     }
