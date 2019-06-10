@@ -49,7 +49,8 @@ The BGM is a serialized field in the script:  ```[SerializeField]
     private AudioSource BGM;```
 
 when the state changes, the music will switch:
-```    if (currState == gameState.playing && !BGM.isPlaying) BGM.Play();
+```    
+    if (currState == gameState.playing && !BGM.isPlaying) BGM.Play();
 ```   
 
 
