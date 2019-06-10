@@ -350,6 +350,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeCamera()
     {
+        clickSound.Play();
         if (followCam)
         {
             followCam = false;
@@ -363,6 +364,7 @@ public class GameManager : MonoBehaviour
     // Mute the volume
     public void VolumeOn()
     {
+        clickSound.Play();
         if (AudioListener.volume != 0)
         {
             AudioListener.volume = 0;
