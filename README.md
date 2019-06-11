@@ -70,7 +70,23 @@ In the upgrade page, we offer several upgrading choices including increasing fir
 
 **List your assets including their sources, and licenses.**
 
+All 3D model assets were downloaded from the Unity asset store and follow the standard Unity EULA, and the publishers specified no restrictions and therefore are free to use for commercial and private use.
+
+[Stylized Astronaut](https://assetstore.unity.com/packages/3d/characters/humanoids/stylized-astronaut-114298) by NIGHTSOUNDGAMES - Used for the player model.
+
+[Starfield Skybox](https://assetstore.unity.com/packages/2d/textures-materials/sky/starfield-skybox-92717) by NIGHTSOUNDGAMES - Used for the game background.
+
+[Spaceships]() - (idk the links for this one) - for the enemies.
+
 **Describe how your work intersects with game feel, graphic design, and world-building. Include your visual style guide if one exists.**
+
+Our game has a simple, lighthearted, arcade type of feel. Therefore, our choice of assets should fit with the design and feel of the game. The models and graphics are detailed but have a cartoonish type of feel to fit the game. 
+
+The player astronaut is a low-poly design and not meant to look realistic. However, it has enough detail to appreciate the animations when the character runs, jumps, and shoots. the quick and simple animations from the astronaut give the player feedback as they control the character. The jump animation as a summersault serves a purpose to make the jump seem more noticable since the astronaut is small in comparison to the rest of the screen, and also add to the feel that the jump is also an attack.
+
+The enemy spaceships fit the cartoonish sci-fi environment that we intended for the setting of the game. The more difficult enemies, such as the green spaceship that takes more shots to destroy, and the fast purple spaceship both have a more menacing look than the standard enemy to show that they are different.
+
+We combine these aesthetically pleasing assets with simple objects, such as a simple glowing rectangular prism for the lasers and simple spheres drawn in the unity engine for the power ups. Although simple, these elements still are fitting for the rest of the visual 3D cartoon style and also serves to be less distracting so that the player can focus on the gameplay while still enjoying the visuals.
 
 ## Input
 
