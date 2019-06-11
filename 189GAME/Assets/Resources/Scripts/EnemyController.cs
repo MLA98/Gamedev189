@@ -54,12 +54,14 @@ public class EnemyController : MonoBehaviour
 
     public void MeleeAttacked()
     {
+        instance.melee = true;
         enemyHealth--;
         // Knockback
         this.GetComponent<Rigidbody>().AddForce(-transform.forward * 0.2f);
         if (enemyHealth == 0)
         {
             instance.Health += damage;
+            instance.hit = false;
             collapsedSound.Play();
             transform.position = new Vector3(transform.position.x,
                             transform.position.y,
@@ -71,7 +73,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.collider.name == "Mars" || collision.collider.name == "Player"))
+        if (collision.collider.name == "Mars" || collision.collider.name == "Player")
         {
             collapsedSound.Play();
             transform.position = new Vector3(transform.position.x, 

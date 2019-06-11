@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public Image winScreen;
     public Image pauseScreen;
     public Image titleScreen;
+    public Image hitIndicator;
     public Slider healthBar;
     public Slider waveHealthBar;
     public Slider upgradeHealthBar;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
     public bool spread;
     public bool AOE;
     public bool hit;
+    public bool melee;
     public bool followCam;
 
     // Game states
@@ -97,6 +99,7 @@ public class GameManager : MonoBehaviour
         AOE = false;
         hit = false;
         followCam = false;
+        melee = false;
         BGM.Play();
     }
 
@@ -393,6 +396,5 @@ public class GameManager : MonoBehaviour
 
         listOfDiaryEntries[6] = "November 1, 20xx \n\n We have finally attracted the Queen Bee. This will be the final battle. The planet cannot survive a single blow from the Queen. Game time is over, it's Destroy or be destroyed.\n\n\t - Musky";
     }
-
 }
 

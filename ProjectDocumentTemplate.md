@@ -6,9 +6,17 @@ Set in an immersive space setting, MUSKY DEFENDER builds on the popular shoot 'e
 
 ## Gameplay explanation ##
 
-**In this section, explain how the game should be played. Treat this like a manual within a game. It is encouraged to explain the button mappings and the most optimal gameplay strategy.**
+###Controls
+- Use left and right keys (<-/-> or A/D) to move around the planet.
+- Use the up key (W or ↑) to jump.
+- Use spacebar to shoot your laser.
+- Use esc key as an alternative way to pause
 
+###Tutorial
+Move around the planet and shoot your laser to destroy incoming enemy spaceships. Also note that jumping into enemies will also destroy them just don't do so at low health or you might die.  Be sure to keep track of your HUD to conserve your ammo and be wary of your health.  You start off with 50 ammo and a maximum of 10 health.  These can be replenished via spending points in the upgrade screen or shooting down supply ships providing either max health or 50 ammo.
 
+###Strategy
+Your main goal is to survive the oncoming waves of enemies.  Each of the three enemies have different stats and behaviors for you to find out so react accordingly.  Be careful of the boss that arrives at wave 8.  In order to prepare, spend your points wisely on upgrades between waves.  If you aren't careful with your health or ammo, most of your points would be spent refilling them.  You can upgrade your fire rate and laser speed but be sure to save up for more the powerful upgrades: spreadshot and explosive lasers.
 
 
 # Main Roles #
@@ -79,7 +87,25 @@ Input in the game is handled using the [SimpleInput library](https://github.com/
 
 ## Game Logic
 
-**Document what game states and game data you managed and what design patterns you used to complete your task.**
+###Singleton
+A singleton method was used on our GameManager in order to manage variables used among all other scripts.  This is done by instantiating a private static instance inside the Awake function of the GameManagers MonoBehaviour.  It checks if there's another instance and destroys itself if there is or instantiates itself if there isn't.  Other scripts are then able to access this instance through a public getter function.  The structure of using a singleton was based off [this forum post](https://gamedev.stackexchange.com/a/116010).
+
+Inside the GameManager we stored various variables and states, as well as managing UI and button scripts.  The key gameplay variables include Score, Health, Ammo, and Wave.  
+
+###Score
+Score is the amount of points obtained from destroying enemies.  These points can then be used to refill 100 ammo for 10 points or refill all health for 50 points as well as be used for various upgrades to your laser gun at the end of each wave.  These upgrades include increasing fire rate and laser speed by a factor of 1.1 times for 250 points.  There are also one time upgrades for spreadshot for 500 points and explosive shots for 1000 points.  The spreadshot shoots 3 lasers in a spread out pattern.  The explosive shot creates an explosion on impact with an enemy which can then destroy other enemies that run into it.  The default enemy gives you 5 points, big enemy gives you 10 points, tiny enemy gives you 15 points, supply ships give you 20 points, and the boss gives you 100 points.  
+
+###Health
+The health is initialized as 10 health points.  The default enemy and tiny enemy takes away 1 health point, the big enemy takes away 2 health points, and the boss takes away 10 health points (an instant kill).  To regain health, you can gather the pink orbs from supply ships or spending 50 points in the upgrade screen.
+
+###Ammo
+The ammo is amount of lasers left that you can shoot.  You start off with 50 ammo and each shot takes away one ammo.  Later on, when you upgrade to spreadshot, 3 lasers are shot at a time and thus 3 ammo is taken away.  To refill ammo, you can gather 50 ammo from green orbs dropped by supply ships and 100 ammo from spending 10 points in the upgrade screen.
+
+###Wave
+Finally, the last variable is Wave which keeps track of which wave the player is currently on.  The number is also used to adjust the difficulty of the wave.  The spawn rate of enemies are increased by decreasing the time between each spawn using the linear equation 2 - 0.1 * (Wave - 1).  It is also used for the amount of enemies spawned using the linear equation 12 * Wave.  The Wave number also indicates which enemies are spawned and their probability of being spawned through the use of if statements.  Waves 1 and 2 only have the default enemies.  Waves 3 and 4 have the default enemies spawn 70% of the time and big enemies spawn 30% of the time.  Waves 5 - 7 have default enemies spawn 40% of the time, big enemies spawn 35% of the time, and small enemies spawn 25% of the time.  This is done by using a random number generator and if statements.  At wave 8, only the boss is spawned once by using a boolean to tell if it was spawned already in the update function.  Similar spawning logic from the Wave variable is used for spawning supply ships as well.  Their limit is increased by the linear equation 4 * Wave and the spawn rate is decreased by increasing the rate between each spawn by the linear equation 5 * Wave.
+
+### Game States and Transitions
+The states stored in GameManager include title, bootUp, gameOver, waveCompleted, playing, pause, upgradeScreenState, won, and dialogueScreenState.  The game starts off in the title state which is initialized in the awake function of GameManager.  This state contains the title screen with the planet in the middle, our logo, as well as a play button, mute button, and exit button.  When clicking the play button on the title screen, the game state then transitions to the boot up state which uses game feel to transition to the play state.  During the playing state, you can move your character around the planet to shoot enemies which are also spawning.  You can pause the game using the pause button or esc key which then transitions the game to the pause state in which enemy, player, and laser movement are all stopped.  Since movement is stopped there is no way to transition from pause to waveCompleted or gameOver.  Movement continues when the game is unpaused and taken back to the playing state.  When the set amount of enemies are all destroyed, the game transitions from playing state to waveCompleted state.  We look after the amount of enemies spawned matches the wave limit then check if there's any gameobjects with the enemy tag.  This state stops movement and brings up the Wave Completed Screen.  From this state, there are buttons to transition to other states.  The upgrade button goes to the upgradeScreenState which pulls of the upgrade UI where points are used to buy upgrades.  The wave complete state also has a journal entry button which transitions to the dialogueScreenState which pulls up unique journal entries from Elon Musk at the end of each wave.  A button in this screen takes you back to the waveCompleted state.  From the waveCompleted and upgradeScreen states there's a button to continue to the next wave which increments the wave by 1 and transitions to the playing state.  If the health is decreased to 0 or below the playing state transitions to the gameOver state where the planet is destroyed, enemy movement stops, and the game over screen is pulled up.  If the player manages to beat the boss in wave 8, the game transitions to the won state where movement stops and the win screen with a special link is pulled up.  There's also a button to go to the title screen by reloading the scene bringing us back to the initial title state.  This button is also located in the pause screen.
 
 # Sub-Roles
 
@@ -172,4 +198,14 @@ As for the in-game footage, I tried to capture visually appealing gameplay with 
 
 ## Game Feel
 
-**Document what you added to and how you tweaked your game to improve its game feel.**
+###Boot Up Immersion
+The sequence of the title screen to boot up to playing state was added to give off an immersive experience from the moment you press the play button.  The camera is rotated around the planet as well as backing up through the use of lerp.  The rotation was achieved by putting the camera in an empty game object located in the center of the planet.  The parent then used Quaternion.Euler to rotate with a value that was changed via Mathf.Lerp.  This empty game object is rotated to achieve the effect of rotating around the planet.  The backing up is a simple lerp of the y position of the camera itself.  The player is also placed above the planet out of the camera view set inactive until the boot up camera lerp is finished.  This is to give the player the feeling of having an "Iron-Man"-like landing onto the planet as gravity drags the player back to the planet as it is set active.  
+
+###Screen Shake
+Screen shake is also implemented to the camera and is activated when the player is hit.  The implementation is taken from [this code from Github Gist](https://gist.github.com/ftvs/5822103).  A boolean called hit in the singleton GameManager is set true in the EnemyController when it collides with the player or planet and is then set false after the screen shake is over in the CameraController.  The camera shake effect is increased when the players health reaches 0.  I went through a roundabout way to change the factor once without it resetting constantly leading to a never ending screen shake.  I checked if the health ranged from -9 to 0 which is the furthest back the health can get due to the boss being able to take away 10 health points from a health bar with 1 point.  From there I increased the factors of the screen shake then subtracted the health by 10 to get out of the if statement in the update function.
+
+###Optional Camera Rotation
+The last effect I added to the camera controller for game feel is an option to change the camera from being static to lerping and following the player's rotation.  This option is added in the pause menu and the effect can be seen while in the pause menu as the camera lerps to match the players rotation or lerps back to the static position.  These camera options are found in the LateUpdate function of the CameraController.  For the lerping rotating camera, we took the current rotation of the camera and lerped it to the rotation of the player - 90 due to the way we placed the planet and player with respect to the camera.  We used Time.deltaTime as the third parameter of the Quaternion.Lerp in order to constantly lerp.  Switching back to the static rotation, we lerp the camera's rotation from the current rotation to the starting rotation (90, 90, 0).  We do this once by taking the Time.time from the rotating camera controller and using the percent of the current time minus this along with a set lerp duration as the third parameter and stop when the percent is at 100%.  I originally tried to lerp the EulerAngles but it didn't work correctly.  I ended up using [this forum post](https://forum.unity.com/threads/euler-rotation-lerp.129006/) to convert the EulerAngles to Quaternion to use Quaternion.Lerp.
+
+###Explosions
+I also added explosion particles to make the explosions feel more real.  The explosive lasers used to just produce expanding red spheres.  Instead, I made the sphere invisible and added a single burst of particles erupting in a sphere.  I added a more dramatic explosion when your health reaches 0 or less.  This is activated by enabling the planets emission then playing it.  I used [this Unity tutorial](https://docs.unity3d.com/Manual/PartSysExplosion.html) to create these explosive effects in the particle system along with the particles from [this asset](https://assetstore.unity.com/packages/vfx/particles/fire-explosions/particle-dissolve-shader-package-33631).

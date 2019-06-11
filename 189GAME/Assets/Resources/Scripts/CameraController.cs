@@ -56,18 +56,22 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (instance.Health == 0)
+        if (instance.Health <= 0 && instance.Health >= -9)
         {
             shakeAmount = 1.0f;
             shakeDuration = 1.0f;
-            instance.Health--;
+            instance.Health -= 10;
         }
 
         // Shake camera when player is hit
-        if (instance.hit)
+        if (instance.hit || instance.melee)
         {
             if (shakeDuration > 0)
             {
+                if (instance.hit)
+                {
+                    instance.hitIndicator.gameObject.SetActive(true);
+                }
                 transform.localPosition = endPos + Random.insideUnitSphere * shakeAmount;
                 shakeDuration -= Time.deltaTime;
             }
@@ -76,6 +80,8 @@ public class CameraController : MonoBehaviour
                 shakeDuration = 0.5f;
                 instance.hit = false;
                 transform.localPosition = endPos;
+                instance.hitIndicator.gameObject.SetActive(false);
+                instance.melee = false;
             }
 
         }
