@@ -196,7 +196,15 @@ Realtime feedback - For weapon shooting sound, we choose a high-pitched sound si
 
 ## Narrative Design
 
-**oDocument how the narrative is present in the game via assets, gameplay systems, and gameplay.** 
+**Document how the narrative is present in the game via assets, gameplay systems, and gameplay.** 
+
+To guide us on starting with a narrative, we first viewed [this quick youtube video by Extra Credits](https://www.youtube.com/watch?v=22HoViH4vOU) explaining narrative design. One thing that they mentioned about coming up with a good narrative was that it was best not to start with a story. So in very beginning of our game creating process, we were first brainstorming the type of game we wanted, the game mechanics, and the game setting before coming up with any story around it.
+
+Once we decided that our game would be a defend your base type game in space, We came up with the basic plot of Elon Musk defending Mars. You can see that the planet is Mars because we chose a texture for the planet that is red, and the spaceships are alien-like to show that they are invaders. 
+
+One important device linking our narrative to our gameplay is the "Diary Entries" that can be viewed between waves. The Diary gives insight to Elon Musk's thoughts before the next wave, but these entries are more than just something that is shoehorned into our game to give a sense of a story. The Diary entries also give clues as to what the player should expect in the next wave. For example, Wave 3 is when the big green spaceships will start to appear, and the Diary will mention that he sees big spaceships coming in the distance. After that wave, the Diary entry mentions that the big spaceships are difficult to take down but would be easier with more powerful lasers or by using melee attacks, so the player can use that information to guide them to play the game. 
+
+
 
 ## Press Kit and Trailer
 
