@@ -40,9 +40,16 @@ You should replay any **bold text** with your own relevant information. Liberall
 
 ## Input
 
-**Describe the default input configuration.**
+Movement can be done using arrow keys or W (jump), A (left), D (right). Space bar is used to shoot. 
 
-**Add an entry for each platform or input style your project supports.**
+Input in the game is handled using the [SimpleInput library](https://github.com/yasirkula/UnitySimpleInput). It simply offers a [uniform way](https://github.com/MLA98/Gamedev189/blob/704260c03faa5f1aa66697238ba8202b40af3640/189GAME/Assets/Resources/Scripts/PlayerController.cs#L38) of getting user inputs such that input can be detected from keyboards, joysticks, and UI buttons, depending on the platform.
+
+- Desktop - SimpleInput offers a conveniently familiar API for getting input.
+
+- Mobile - UI buttons are used for user input, and [HUDController.cs](https://github.com/MLA98/Gamedev189/blob/master/189GAME/Assets/Resources/Scripts/HUDController.cs) toggles the UI buttons depending on the state of the game. 
+
+
+*Command Pattern* - The game uses the command pattern by implementing [IPlayerCommand](https://github.com/MLA98/Gamedev189/blob/master/189GAME/Assets/Resources/Scripts/IPlayerCommand.cs), a command interface which is extended by [MovePlayerClockwise](https://github.com/MLA98/Gamedev189/blob/master/189GAME/Assets/Resources/Scripts/MovePlayerClockwise.cs), [MovePlayerCounterClockwise](https://github.com/MLA98/Gamedev189/blob/master/189GAME/Assets/Resources/Scripts/MovePlayerCounterClockwise.cs), [PlayerJump](https://github.com/MLA98/Gamedev189/blob/master/189GAME/Assets/Resources/Scripts/PlayerJump.cs), and [PlayerShoot](https://github.com/MLA98/Gamedev189/blob/master/189GAME/Assets/Resources/Scripts/PlayerShoot.cs).
 
 ## Game Logic
 
@@ -70,11 +77,17 @@ You should replay any **bold text** with your own relevant information. Liberall
 
 ## Press Kit and Trailer
 
-**Include links to your presskit materials and trailer.**
+### [Press Kit](https://mla98.github.io/Gamedev189/press_release.pdf)
 
-**Describe how you showcased your work. How did you choose what to show in the trailer? Why did you choose your screenshots?**
+- [Web page](https://mla98.github.io/Gamedev189/) source available in './docs', along with license for CSS library.
 
+- Press kit document based off of [this Latex template](https://www.latextemplates.com/template/press-release). 
 
+### [Trailer](https://www.youtube.com/watch?v=DS22M8uvKxo)
+
+I wanted to create a trailer that grabbed the attention of the viewer. Given the top down nature of the game, I felt adding cinematic and playful shot of the main character running would immerse the viewer in the world of the game.
+
+As for the in-game footage, I tried to capture visually appealing gameplay with interesting patterns, while showcasing different kinds of power-ups available to the player.
 
 ## Game Feel
 
