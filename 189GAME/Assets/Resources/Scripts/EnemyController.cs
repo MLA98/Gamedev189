@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 
     private GameManager instance;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +71,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.name == "Mars" || collision.collider.name == "Player")
+        if ((collision.collider.name == "Mars" || collision.collider.name == "Player"))
         {
             collapsedSound.Play();
             transform.position = new Vector3(transform.position.x, 

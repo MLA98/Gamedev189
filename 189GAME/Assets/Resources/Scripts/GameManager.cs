@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     // Array to store Diary entry stories
     // The text in each entry is assigned to each array entry
     // at the bottom of this source file.
-    private string [] listOfDiaryEntries = new string[7];
+    private string [] listOfDiaryEntries = new string[8];
 
     // Singleton
     private static GameManager instance;
@@ -383,9 +383,15 @@ public class GameManager : MonoBehaviour
 
         listOfDiaryEntries[1] = "February 27, 20xx \n\n We have spotted in the distance much larger ships. We must take caution as they approach. I do not think that They will be easy to take down in one shot...\n\n\t- Musky";
 
-        listOfDiaryEntries[2] = "March 20, 20xx";
+        listOfDiaryEntries[2] = "March 20, 20xx \n\n The large ships are proving to be quite adversarial. They are getting much to close to home before I can take them down with enough laser shots. The explosive shots we are researching should take them down easier, but it may be some time before we have the resources to have those ready. For now, attacking them at close quarters should help to keep them at byay. \n\n\t- Musky";
 
         listOfDiaryEntries[3] = "April 15, 20xx \n\n It looks like the enemy is looking for a change of strategy. We've spotted smaller and more agile ships in the distance. It won't be long before they reach our home. We should consider upgrading our lasers to help us shoot them down easier... \n\n\t- Musky";
+    
+        listOfDiaryEntries[4] = "May 10, 20xx \n\n Although I fight to protect Mars, I still have not forgotten my roots. To the original homeland, happy Mother's Day, planet Earth. \n\n\t- Musky";
+
+        listOfDiaryEntries[5] = "June 12, 20xx \n\n The enemy has been rushing more and more forces at us, but it seems that we can use this against them, as every ship we take down is more resources to upgrade our own weaponry against them. \n\n\t- Musky";
+
+        listOfDiaryEntries[6] = "November 1, 20xx \n\n We have finally attracted the Queen Bee. This will be the final battle. The planet cannot survive a single blow from the Queen. Game time is over, it's Destroy or be destroyed.\n\n\t - Musky";
     }
 
 }
