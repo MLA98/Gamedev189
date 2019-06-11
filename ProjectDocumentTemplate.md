@@ -2,7 +2,7 @@
 
 ## Summary ##
 
-**A paragraph-length pitch for your game.**
+Set in an immersive space setting, MUSKY DEFENDER builds on the popular shoot 'em up genre with an interesting twist. Our hero, stationed on Mars, fights off waves of enemies, utilizing left/right movement and rocket jumping to get around the planet. Our hero starts out with a simple laser gun. As the waves of enemies grow stronger, so does our hero, with access to upgrades and power-ups at the end of each wave. Throughout the waves the player will face enemies of varying difficulties. The player must manage their resources well and build up their arsenal before ultimately reaching a boss fight that will surely stress test their abilities.
 
 ## Gameplay explanation ##
 
