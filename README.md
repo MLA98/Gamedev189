@@ -133,7 +133,10 @@ All 3D model assets were downloaded from the Unity asset store and follow the st
 
 [Starfield Skybox](https://assetstore.unity.com/packages/2d/textures-materials/sky/starfield-skybox-92717) by NIGHTSOUNDGAMES - Used for the game background.
 
-[Spaceships]() - (idk the links for this one) - for the enemies.
+[Alien Ships Pack](https://assetstore.unity.com/packages/3d/vehicles/space/alien-ships-pack-131137) by AUTARCA - for the enemies.
+
+[Free Space Ships](https://assetstore.unity.com/packages/3d/vehicles/space/alien-ships-pack-131137) by 1MAFX - for the enemy supply ships.
+
 
 **Describe how your work intersects with game feel, graphic design, and world-building. Include your visual style guide if one exists.**
 
